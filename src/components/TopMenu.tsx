@@ -3,6 +3,7 @@ import { authenticationLogin, authenticationRegister } from "../services/api";
 import parseError from "../services/helper";
 import ShoppingCart from "./ShoppingCart";
 import type { ProductType } from "../types/ProductType";
+import AccountInfo from "./AccountInfo";
 
 type Props = {
   setActiveTheme: (newTheme: string) => void,
@@ -25,6 +26,8 @@ type Props = {
   password: string,
   setPassword: (newPassword: string) => void,
 
+  onProductUpdated: () => void;
+
   loginWindowIsOpen: boolean,
   registerWindowIsOpen: boolean,
   settingsWindowIsOpen: boolean,
@@ -46,6 +49,7 @@ function TopMenu(props: Props) {
   const [currentSettingsSection, setCurrentSettingsSection] = useState('');
 
   const [shoppingCartIsOpen, setShoppingCartIsOpen] = useState(false);
+  const [profileWindowIsOpen, setProfileWindowIsOpen] = useState(false);
 
 
   const handleRegister = async () => {
@@ -130,7 +134,7 @@ function TopMenu(props: Props) {
               <div id="shopping-cart-button" onClick={() => setShoppingCartIsOpen((prev) => !prev)}>Shopping Cart ({props.cartProducts.length})</div>
             )}
 
-            <div id='profile-button'>Profile</div>
+            <div id='profile-button' onClick={() => setProfileWindowIsOpen(true)}>Profile</div>
             <div id='settings-button' onClick={props.settingsOpen}>Settings</div>
 
             {props.isLoggedIn && <div id='log-out-button' onClick={handleLogOut}>Log out</div>}
@@ -143,11 +147,18 @@ function TopMenu(props: Props) {
           products={props.cartProducts}
           clearCart={() => props.setCartProducts([])}
 
+          onOrderSuccess={props.onProductUpdated}
+
           shoppingCartIsOpen={shoppingCartIsOpen}
           shoppingCartOpen={() => setShoppingCartIsOpen(true)}
           shoppingCartClose={() => setShoppingCartIsOpen(false)}
         />
       )}
+
+      <AccountInfo
+        isOpen={profileWindowIsOpen}
+        onClose={() => setProfileWindowIsOpen(false)}
+      />
 
 
       {props.loginWindowIsOpen && (

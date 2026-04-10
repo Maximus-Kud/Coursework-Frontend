@@ -7,6 +7,8 @@ import ShoppingCartProduct from './products/ShoppingCartProduct';
 type Props = {
   products: ProductType[],
   clearCart: () => void,
+
+  onOrderSuccess?: () => void,
   
   shoppingCartIsOpen: boolean,
 
@@ -25,16 +27,15 @@ function ShoppingCart(props: Props) {
 
     try {
       const productIds = props.products.map(p => p.id);
+      const response = await marketplaceOrder(productIds);
       
-      await marketplaceOrder(productIds);
-      
-      alert('Order placed successfully!');
+      alert(`Order #${response.orderId} placed successfully!`);
       
       props.clearCart();
+      if (props.onOrderSuccess) props.onOrderSuccess();
       props.shoppingCartClose();
     }
     catch (error) {
-      console.error("Payment failed:", error);
       alert('Failed to place order.');
     }
   };

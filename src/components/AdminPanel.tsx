@@ -4,6 +4,7 @@ import type { ProductType } from "../types/ProductType";
 import AdminProduct from "./products/AdminProduct";
 import Product from "./products/Product";
 import parseError from "../services/helper";
+import type { OrderType } from "../types/OrderType";
 
 type Props = {
   adminPanelIsOpen: boolean,
@@ -19,6 +20,17 @@ type Props = {
   onProductUpdated: () => void,
 }
 
+export type UserType = {
+  id: number;
+  userName: string;
+  email?: string;
+};
+
+export type UsersListResponse = {
+  admins: UserType[];
+  customers: UserType[];
+};
+
 
 
 function AdminPanel(props: Props) {
@@ -26,14 +38,14 @@ function AdminPanel(props: Props) {
   const [newPrice, setNewPrice] = useState<number>();
   const [newInStock, setNewInStock] = useState<number>();
 
-  const [users, setUsers] = useState<any[]>([]);
-  const [ordersInShoppingCart, setOrdersInShoppingCart] = useState<any[]>([]);
-  const [ordersPurchased, setOrdersPurchased] = useState<any[]>([]);
+  const [users, setUsers] = useState<UsersListResponse | null>(null);
+  const [ordersInShoppingCart, setOrdersInShoppingCart] = useState<OrderType[]>([]);
+  const [ordersPurchased, setOrdersPurchased] = useState<OrderType[]>([]);
 
   const [orderId, setOrderId] = useState<number | string>("");
   const [orderStatus, setOrderStatus] = useState<string>("");
 
-  const [accountId, setAccountId] = useState<number | string>("");
+  const [accountId, setAccountId] = useState<string>("");
   const [accountBalance, setAccountBalance] = useState<number | string>("");
 
   const [addProductWindowIsOpen, setAddProductWindowIsOpen] = useState(false);
@@ -116,15 +128,33 @@ function AdminPanel(props: Props) {
 
   const handleChangeAccountBalance = async () => {
     try {
-      if (!accountId || accountBalance === "") return;
-      await adminChangeAccountBalance(Number(accountId), Number(accountBalance));
+      alert("Hello")
+      if (accountId === "" || accountBalance === "") return;
+      alert("Success")
+      await adminChangeAccountBalance(accountId, Number(accountBalance));
       
       setChangeAccountBalanceWindowIsOpen(false);
       setAccountId("");
       setAccountBalance("");
     }
     catch (e) {
-      props.setError(parseError(e))
+      console.log("ERROR:", e);
+      alert(JSON.stringify(e));
+      props.setError(parseError(e));
+    }
+  };
+
+  const handleQuickChangeStatus = async (id: number, status: string) => {
+    try {
+      await adminChangeOrderStatus(id, status);
+      alert(`Order #${id} status changed to ${status}`);
+      
+      await handleGetOrdersInShoppingCart();
+      await handleGetOrdersPurchased();
+      props.onProductUpdated();
+    }
+    catch (e) {
+      props.setError(parseError(e));
     }
   };
 
@@ -146,29 +176,44 @@ function AdminPanel(props: Props) {
         <div className="type">
           <div className="title">Add New Product</div>
           <input type="text" placeholder="Name" value={newName} onChange={(e) => setNewName(e.target.value)}></input>
-          <input type="number" placeholder="Price" value={newPrice ?? ""} onChange={(e) => setNewPrice(e.target.value ? Number(e.target.value) : undefined)}></input>
-          <input type="number" placeholder="In Stock" value={newInStock} onChange={(e) => setNewInStock(Number(e.target.value))} ></input>
+          <input type="number" placeholder="Price" value={newPrice ?? ""} min="0" onChange={(e) => setNewPrice(e.target.value ? Number(e.target.value) : undefined)}></input>
+          <input type="number" placeholder="In Stock" value={newInStock ?? ""} onChange={(e) => setNewInStock(Number(e.target.value))} ></input>
           <button onClick={() => handleCancel(setAddProductWindowIsOpen)}>Cancel</button>
           <button className="save-button" onClick={handleAddProduct}>Add</button>
         </div>
       )}
 
-      {getUsersWindowIsOpen && (
+      {getUsersWindowIsOpen && users && (
         <div className="type">
           <div className="title">Users</div>
-          <div>{users.length > 0 ? users.map(user => (
-            <div key={user.id}>{user.name}</div>
-          )) : "No users found."}</div>
+          <div>
+            <>Admins:</>
+            {users.admins?.map(u => <div key={u.id}>{u.userName} (ID: {u.id})</div>)}
+            <br/>
+            <>Customers:</>
+            {users.customers?.map(u => <div key={u.id}>{u.userName} (ID: {u.id})</div>)}
+          </div>
           <button onClick={() => setGetUsersWindowIsOpen(false)}>Close</button>
         </div>
       )}
 
       {getOrdersInShoppingCartWindowIsOpen && (
-        <div className="type">
+        <div className="type admin-orders-list">
           <div className="title">Orders in Shopping Cart</div>
-          <div>{ordersInShoppingCart.length > 0 ? ordersInShoppingCart.map(order => (
-            <div key={order.id}>Order #{order.id}</div>
-          )) : "No orders in shopping cart."}</div>
+          <div className="orders-container">
+            {ordersInShoppingCart.length > 0 ? ordersInShoppingCart.map(order => (
+              <div key={order.id} className="order-card">
+                <div><span style={{fontFamily: 'Google-Sans-Medium'}}>Order ID:</span> {order.id}</div>
+                <div><span style={{fontFamily: 'Google-Sans-Medium'}}>User ID:</span> {order.userId}</div>
+                <div><span style={{fontFamily: 'Google-Sans-Medium'}}>Total:</span> {order.totalPrice} $</div>
+                
+                <div className="order-actions">
+                  <button style={{marginBottom: '10px'}} className="approve-button" onClick={() => handleQuickChangeStatus(order.id, "Purchased")}>Approve (Purchase)</button>
+                  <button className="cancel-button" onClick={() => handleQuickChangeStatus(order.id, "Cancelled")}>Cancel</button>
+                </div>
+              </div>
+            )) : "No orders found."}
+          </div>
           <button onClick={() => setGetOrdersInShoppingCartWindowIsOpen(false)}>Close</button>
         </div>
       )}
@@ -196,8 +241,8 @@ function AdminPanel(props: Props) {
       {changeAccountBalanceWindowIsOpen && (
         <div className="type">
           <div className="title">Change Account Balance</div>
-          <input type="number" placeholder="Account ID" value={accountId} onChange={(e) => setAccountId(e.target.value ? Number(e.target.value) : "")}></input>
-          <input type="number" placeholder="New Balance" value={accountBalance} onChange={(e) => setAccountBalance(e.target.value ? Number(e.target.value) : "")}></input>
+          <input type="number" placeholder="Account ID" value={accountId} onChange={(e) => setAccountId(e.target.value)}></input>
+          <input type="number" placeholder="New Balance" value={accountBalance} onChange={(e) => setAccountBalance(e.target.value === "" ? "" : Number(e.target.value))}></input>
           <button onClick={() => setChangeAccountBalanceWindowIsOpen(false)}>Cancel</button>
           <button className="save-button" onClick={handleChangeAccountBalance}>Save</button>
         </div>

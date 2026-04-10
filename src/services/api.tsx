@@ -37,7 +37,7 @@ export async function callApi(controller: keyof typeof apiConfig, endpoint: keyo
     catch {
       errorData = { message: text };
     }
-    
+
     throw errorData;
   }
 
@@ -122,6 +122,6 @@ export async function adminChangeOrderStatus(orderId: number, status: string) {
   return callApi("Admin", "changeOrderStatus", { orderId, status });
 }
 
-export async function adminChangeAccountBalance(accountId: number, newBalance: number) {
+export async function adminChangeAccountBalance(accountId: string, newBalance: number) {
   return callApi("Admin", "changeAccountBalance", { accountId, newBalance });
 }

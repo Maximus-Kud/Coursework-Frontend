@@ -134,6 +134,8 @@ function HomePage() {
           password={password}
           setPassword={setPassword}
 
+          onProductUpdated={handleProductUpdated}
+
           loginWindowIsOpen={loginWindowIsOpen}
           registerWindowIsOpen={registerWindowIsOpen}
           settingsWindowIsOpen={settingsWindowIsOpen}
