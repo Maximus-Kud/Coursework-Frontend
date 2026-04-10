@@ -162,7 +162,7 @@ function HomePage() {
 
           <div id='product-list'>
             {products.length > 0 ? (products.map((p) => (
-              <Product key={p.id} product={p} addToCart={() => handleAddToCart(p)} />
+              <Product key={p.id} product={p} addToCart={handleAddToCart} />
               ))) : (<div>No products available</div>)}
           </div>
         </div>

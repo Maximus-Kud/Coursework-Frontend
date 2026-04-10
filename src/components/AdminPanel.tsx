@@ -146,7 +146,7 @@ function AdminPanel(props: Props) {
         <div className="type">
           <div className="title">Add New Product</div>
           <input type="text" placeholder="Name" value={newName} onChange={(e) => setNewName(e.target.value)}></input>
-          <input type="number" placeholder="Price" value={newPrice} onChange={(e) => setNewPrice(e.target.value ? Number(e.target.value) : undefined)}></input>
+          <input type="number" placeholder="Price" value={newPrice ?? ""} onChange={(e) => setNewPrice(e.target.value ? Number(e.target.value) : undefined)}></input>
           <input type="number" placeholder="In Stock" value={newInStock} onChange={(e) => setNewInStock(Number(e.target.value))} ></input>
           <button onClick={() => handleCancel(setAddProductWindowIsOpen)}>Cancel</button>
           <button className="save-button" onClick={handleAddProduct}>Add</button>
