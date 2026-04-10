@@ -1,0 +1,34 @@
+#shopping-cart {
+  background-color: #ffffff;
+
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+  
+  transform: translate(-50%, -50%);
+
+  border-radius: 25px;
+
+  width: 70%;
+  height: 70%;
+
+  padding: 50px;
+
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+}
+
+#title {
+  font-family: 'Google-Sans-Bold';
+  font-size: 30px;
+}
+
+
+
+.shopping-cart-product {
+  display: flex;
+  flex-direction: column;
+}
