@@ -53,6 +53,8 @@ export async function callApi(controller: keyof typeof apiConfig, endpoint: keyo
 
 
 
+
+
 // ========== Authentication ==========
 export async function authenticationRegister(data: {
   username: string;
@@ -61,6 +63,7 @@ export async function authenticationRegister(data: {
 }) {
   return callApi("Authentication", "register", data);
 }
+
 
 export async function authenticationLogin(data: {
   username: string,
@@ -71,22 +74,31 @@ export async function authenticationLogin(data: {
 }
 
 
+
+
+
 // ========== Marketplace ==========
 export async function marketplaceGetAvailableProducts() {
   return callApi("Marketplace");
 }
 
+
 export async function marketplaceOrder(productsId: number[]) {
   return callApi("Marketplace", "order", { productsId });
 }
+
 
 export async function marketplaceGetAccountInfo() {
   return callApi("Marketplace", "getAccountInfo");
 }
 
+
 export async function marketplaceGetLogs() {
   return callApi("Marketplace", "getLogs");
 }
+
+
+
 
 
 // ========== Admin ==========
@@ -94,33 +106,41 @@ export async function adminGetProducts() {
   return callApi("Admin", "products");
 }
 
+
 export async function adminAddProduct(name: string, price: number, inStock: number) {
   return callApi("Admin", "addProduct", { name, price, inStock });
 }
+
 
 export async function adminUpdateProduct(name: string, price: number, inStock: number, isAvailable: boolean, id: number) {
   return callApi("Admin", "updateProduct", { name, price, inStock, isAvailable }, id);
 }
 
+
 export async function adminDeleteProduct(id: number) {
   return callApi("Admin", "deleteProduct", {}, id);
 }
+
 
 export async function adminGetUsers() {
   return callApi("Admin", "users");
 }
 
+
 export async function adminGetOrdersInShoppingCart() {
   return callApi("Admin", "getOrdersInShoppingCart");
 }
+
 
 export async function adminGetOrdersPurchased() {
   return callApi("Admin", "getOrdersPurchased");
 }
 
+
 export async function adminChangeOrderStatus(orderId: number, status: string) {
   return callApi("Admin", "changeOrderStatus", { orderId, status });
 }
+
 
 export async function adminChangeAccountBalance(accountId: string, newBalance: number) {
   return callApi("Admin", "changeAccountBalance", { accountId, newBalance });

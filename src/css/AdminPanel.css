@@ -1,0 +1,231 @@
+/* ============================== Admin Panel ============================== */
+#admin-panel {
+  width: 100vw;
+  height: calc(100vh - 40px - 5vh);
+
+  background-color: #ffffff;
+
+  position: fixed;
+  bottom: 0;
+
+  padding: 50px;
+}
+/* ========================================================================= */
+
+
+
+
+
+
+
+
+
+
+/* ============================== Option Buttons ============================== */
+#options-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+
+#options-buttons .option-button {
+  background-color: #0847cc;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 15px;
+
+  padding: 7px 40px;
+
+  font-size: 20px;
+}
+#options-buttons .option-button:hover {
+  background-color: #082b6b;
+}
+
+
+
+#add-new-product {
+  margin: 30px 0;
+
+  background-color: #13cc4b;
+  color: #ffffff;
+
+  font-family: 'Google-Sans-Medium';
+  font-size: 20px;
+
+  padding: 7px 40px;
+
+  border: none;
+  border-radius: 15px;
+}
+#add-new-product:hover {
+  cursor: pointer;
+  background-color: #0e9c39
+}
+/* ============================================================================ */
+
+
+
+
+
+
+
+
+
+
+/* ============================== Admin Products ============================== */
+#product-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+
+.admin-product {
+  width: 80%;
+  border: 1px solid #062a64;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 5px 10px;
+}
+
+
+.admin-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-product-name {
+  font-family: 'Google-Sans-Bold';
+  font-size: 18px;
+}
+
+.admin-product-price {
+  font-family: 'Google-Sans-Bold';
+  font-size: 20px;
+
+  color: #0847cc !important;
+}
+
+
+.admin-product-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.admin-product-actions .update-button {
+  background-color: #0a5bff;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px 20px;
+}
+.admin-product-actions .update-button:hover {
+  cursor: pointer;
+  background-color: #082b6b;
+}
+
+.admin-product-actions .delete-button {
+  background-color: #e63946;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px 20px;
+}
+.admin-product-actions .delete-button:hover {
+  cursor: pointer;
+  background-color: #721c24;
+}
+/* ============================================================================ */
+
+
+
+.window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background-color: #ffffff;
+  padding: 20px;
+
+  border-radius: 15px;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.window .title {
+  font-size: 20px;
+  font-family: 'Google-Sans-Bold';
+}
+
+.window input {
+  border: 1px solid #0847cc;
+  border-radius: 7px;
+
+  padding: 4px 10px;
+
+  background-color: #ffffff;
+}
+
+.window label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.window button {
+  width: 100%;
+
+  background-color: #0847cc;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 6px 12px;
+}
+.window button:hover {
+  cursor: pointer;
+  background-color: #062a64;
+}
+
+.window .save-button {
+  background-color: #13cc4b;
+}
+.window .save-button:hover {
+  background-color: #0e9c39;
+}
+
+.window .delete {
+  background-color: #e63946;
+}
+.window .delete:hover {
+  background-color: #721c24;
+}

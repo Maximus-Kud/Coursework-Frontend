@@ -2,9 +2,15 @@ import { useState } from "react";
 import { adminAddProduct, adminChangeAccountBalance, adminChangeOrderStatus, adminGetOrdersInShoppingCart, adminGetOrdersPurchased, adminGetUsers, marketplaceGetAvailableProducts } from "../services/api";
 import type { ProductType } from "../types/ProductType";
 import AdminProduct from "./products/AdminProduct";
-import Product from "./products/Product";
 import parseError from "../services/helper";
 import type { OrderType } from "../types/OrderType";
+import type { NotificationType } from "../types/Notification";
+
+import '../css/AdminPanel.css'
+
+
+
+
 
 type Props = {
   adminPanelIsOpen: boolean,
@@ -14,8 +20,13 @@ type Props = {
 
   products: ProductType[],
 
-  error: string,
-  setError: (newError: string) => void,
+  
+  showInlineNotification: (newMessage: string, type?: NotificationType) => void,
+  showToastNotification: (newMessage: string, type?: NotificationType) => void,
+  showModalNotification: (newMessage: string, type?: NotificationType) => void,
+
+  clearAllNotifications: () => void,
+
 
   onProductUpdated: () => void,
 }
@@ -33,8 +44,10 @@ export type UsersListResponse = {
 
 
 
+
+
 function AdminPanel(props: Props) {
-  const [newName, setNewName] = useState<string>("")
+  const [newName, setNewName] = useState<string>("");
   const [newPrice, setNewPrice] = useState<number>();
   const [newInStock, setNewInStock] = useState<number>();
 
@@ -57,20 +70,6 @@ function AdminPanel(props: Props) {
 
 
 
-  const handleAddProduct = async () => {
-    try {
-      if (!newName || newPrice === undefined || newInStock === undefined) return;
-
-      await adminAddProduct(newName, newPrice, newInStock);
-      props.onProductUpdated();
-
-      handleCancel(setAddProductWindowIsOpen);
-    }
-    catch (e) {
-      props.setError(parseError(e));
-    }
-  };
-
   const handleCancel = (state: (close: boolean) => void) => {
     setNewName("");
     setNewPrice(undefined);
@@ -79,38 +78,66 @@ function AdminPanel(props: Props) {
     state(false);
   };
 
+
+
+  const handleAddProduct = async () => {
+    try {
+      if (!newName || newPrice === undefined || newInStock === undefined) return;
+
+      await adminAddProduct(newName, newPrice, newInStock);
+      props.onProductUpdated();
+
+      handleCancel(setAddProductWindowIsOpen);
+
+      props.showToastNotification(`Added product ${newName} successfully`, 'success');
+    }
+    catch (e) {
+      props.showModalNotification(parseError(e), 'error');
+    }
+  };
+
+
   const handleGetUsers = async () => {
     try {
       const usersData = await adminGetUsers();
       setUsers(usersData);
       setGetUsersWindowIsOpen(true);
+
+      props.clearAllNotifications();
     }
     catch (e) {
-      props.setError(parseError(e))
+      props.showModalNotification(parseError(e), 'error');
     }
   };
+
 
   const handleGetOrdersInShoppingCart = async () => {
     try {
       const orders = await adminGetOrdersInShoppingCart();
       setOrdersInShoppingCart(orders);
       setGetOrdersInShoppingCartWindowIsOpen(true);
+
+      props.clearAllNotifications();
     }
     catch (e) {
-      props.setError(parseError(e))
+      props.showModalNotification(parseError(e), 'error');
     }
   };
+
 
   const handleGetOrdersPurchased = async () => {
     try {
       const orders = await adminGetOrdersPurchased();
       setOrdersPurchased(orders);
       setGetOrdersPurchasedWindowIsOpen(true);
+
+      props.clearAllNotifications();
     }
     catch (e) {
-      props.setError(parseError(e))
+      props.showModalNotification(parseError(e), 'error');
     }
   };
+
 
   const handleChangeOrderStatus = async () => {
     try {
@@ -120,41 +147,45 @@ function AdminPanel(props: Props) {
       setChangeOrderStatusWindowIsOpen(false);
       setOrderId("");
       setOrderStatus("");
+
+      props.showToastNotification(`Successfully setted order ID: ${Number(orderId)} to ${orderStatus}`, 'success')
     }
     catch (e) {
-      props.setError(parseError(e))
+      props.showModalNotification(parseError(e), 'error');
     }
   };
 
+
   const handleChangeAccountBalance = async () => {
     try {
-      alert("Hello")
       if (accountId === "" || accountBalance === "") return;
-      alert("Success")
+
       await adminChangeAccountBalance(accountId, Number(accountBalance));
       
       setChangeAccountBalanceWindowIsOpen(false);
       setAccountId("");
       setAccountBalance("");
+
+      props.showToastNotification(`Successfully changed account balance for ID: ${accountId} to ${Number(accountBalance)}`, 'success')
     }
     catch (e) {
-      console.log("ERROR:", e);
-      alert(JSON.stringify(e));
-      props.setError(parseError(e));
+      props.showModalNotification(parseError(e), 'error');
     }
   };
+
 
   const handleQuickChangeStatus = async (id: number, status: string) => {
     try {
       await adminChangeOrderStatus(id, status);
-      alert(`Order #${id} status changed to ${status}`);
       
       await handleGetOrdersInShoppingCart();
       await handleGetOrdersPurchased();
       props.onProductUpdated();
+
+      props.showToastNotification(`Order #${id} status changed to ${status}`, 'success');
     }
     catch (e) {
-      props.setError(parseError(e));
+      props.showModalNotification(parseError(e), 'error');
     }
   };
 
@@ -172,19 +203,21 @@ function AdminPanel(props: Props) {
         <button className="option-button" onClick={() => setChangeAccountBalanceWindowIsOpen(true)}>Change Account Balance</button>
       </div>
 
+
       {addProductWindowIsOpen && (
-        <div className="type">
+        <div className="window">
           <div className="title">Add New Product</div>
-          <input type="text" placeholder="Name" value={newName} onChange={(e) => setNewName(e.target.value)}></input>
-          <input type="number" placeholder="Price" value={newPrice ?? ""} min="0" onChange={(e) => setNewPrice(e.target.value ? Number(e.target.value) : undefined)}></input>
-          <input type="number" placeholder="In Stock" value={newInStock ?? ""} onChange={(e) => setNewInStock(Number(e.target.value))} ></input>
+          <input type="text" placeholder="Name" value={newName} onChange={e => setNewName(e.target.value)}></input>
+          <input type="number" placeholder="Price" value={newPrice ?? ""} min={0} onChange={e => setNewPrice(e.target.value ? Number(e.target.value) : undefined)}></input>
+          <input type="number" placeholder="In Stock" value={newInStock ?? ""} min={0} onChange={e => setNewInStock(Number(e.target.value))} ></input>
           <button onClick={() => handleCancel(setAddProductWindowIsOpen)}>Cancel</button>
           <button className="save-button" onClick={handleAddProduct}>Add</button>
         </div>
       )}
 
+
       {getUsersWindowIsOpen && users && (
-        <div className="type">
+        <div className="window">
           <div className="title">Users</div>
           <div>
             <>Admins:</>
@@ -197,8 +230,9 @@ function AdminPanel(props: Props) {
         </div>
       )}
 
+
       {getOrdersInShoppingCartWindowIsOpen && (
-        <div className="type admin-orders-list">
+        <div className="window admin-orders-list">
           <div className="title">Orders in Shopping Cart</div>
           <div className="orders-container">
             {ordersInShoppingCart.length > 0 ? ordersInShoppingCart.map(order => (
@@ -218,8 +252,9 @@ function AdminPanel(props: Props) {
         </div>
       )}
 
+
       {getOrdersPurchasedWindowIsOpen && (
-        <div className="type">
+        <div className="window">
           <div className="title">Orders Purchased</div>
           <div>{ordersPurchased.length > 0 ? ordersPurchased.map(order => (
             <div key={order.id}>Order #{order.id}</div>
@@ -228,21 +263,23 @@ function AdminPanel(props: Props) {
         </div>
       )}
 
+
       {changeOrderStatusWindowIsOpen && (
-        <div className="type">
+        <div className="window">
           <div className="title">Change Order Status</div>
-          <input type="number" placeholder="Order ID" value={orderId} onChange={(e) => setOrderId(e.target.value ? Number(e.target.value) : "")}></input>
-          <input type="text" placeholder="New Status" value={orderStatus} onChange={(e) => setOrderStatus(e.target.value)}></input>
+          <input type="number" placeholder="Order ID" value={orderId} min={0} onChange={e => setOrderId(e.target.value ? Number(e.target.value) : "")}></input>
+          <input type="text" placeholder="New Status" value={orderStatus} onChange={e => setOrderStatus(e.target.value)}></input>
           <button onClick={() => setChangeOrderStatusWindowIsOpen(false)}>Cancel</button>
           <button className="save-button" onClick={handleChangeOrderStatus}>Save</button>
         </div>
       )}
 
+
       {changeAccountBalanceWindowIsOpen && (
-        <div className="type">
+        <div className="window">
           <div className="title">Change Account Balance</div>
-          <input type="number" placeholder="Account ID" value={accountId} onChange={(e) => setAccountId(e.target.value)}></input>
-          <input type="number" placeholder="New Balance" value={accountBalance} onChange={(e) => setAccountBalance(e.target.value === "" ? "" : Number(e.target.value))}></input>
+          <input type="number" placeholder="Account ID" value={accountId} onChange={e => setAccountId(e.target.value)}></input>
+          <input type="number" placeholder="New Balance" value={accountBalance} min={0} onChange={e => setAccountBalance(e.target.value === "" ? "" : Number(e.target.value))}></input>
           <button onClick={() => setChangeAccountBalanceWindowIsOpen(false)}>Cancel</button>
           <button className="save-button" onClick={handleChangeAccountBalance}>Save</button>
         </div>
@@ -250,15 +287,14 @@ function AdminPanel(props: Props) {
 
 
       <div id="product-section">
-        {props.products.length > 0 ? (props.products.map((p) => (
+        {props.products.length > 0 ? (props.products.map(p => (
           <AdminProduct
             key={p.id}
             product={p}
 
             onProductUpdated={props.onProductUpdated}
 
-            error={props.error}
-            setError={props.setError}
+            showToastNotification={props.showToastNotification}
           />
         ))) : <div>No products</div>}
       </div>
@@ -267,5 +303,6 @@ function AdminPanel(props: Props) {
     </div>
   )
 }
+
 
 export default AdminPanel;

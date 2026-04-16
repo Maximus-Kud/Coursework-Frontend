@@ -1,10 +1,16 @@
 import type { ProductType } from '../../types/ProductType'
 
 
+
+
+
 type Props = {
   product: ProductType;
   addToCart: (product: ProductType) => void
 };
+
+
+
 
 
 function Product(props: Props) {

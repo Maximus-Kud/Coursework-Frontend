@@ -1,0 +1,79 @@
+#settings-page {
+  position: fixed;
+  background-color: #082b6b;
+
+  width: 40%;
+  height: 50%;
+
+  padding: 50px 30px;
+  border-radius: 20px;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+
+  z-index: 10;
+}
+
+#settings-possibilities {
+  width: 20%;
+  height: 100%;
+  border-right: 1px solid #1a1a1a;
+
+  color: #ffffff;
+}
+#settings-possibilities div {
+  color: #ffffff;
+}
+
+#settings-sections {
+  padding: 0 30px;
+}
+#settings-sections div {
+  color: #ffffff;
+}
+
+#option-theme {
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+#option-theme:hover {
+  cursor: pointer;
+  background-color: #062a64;
+}
+
+#possible-themes {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.theme-option {
+  padding: 10px 15px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-option:hover {
+  cursor: pointer;
+  background-color: #0a3d91;
+}
+
+.theme-option-text {
+  font-size: 24px;
+}
+
+#close-button {
+  position: absolute;
+  top: 50px;
+  right: 5%;
+}
+#close-button:hover {
+  cursor: pointer;
+}

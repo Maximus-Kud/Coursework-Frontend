@@ -3,13 +3,19 @@ import type { ProductType } from "../../types/ProductType";
 import { adminDeleteProduct, adminUpdateProduct } from "../../services/api";
 import parseError from "../../services/helper";
 
+
+
+
+
 type Props = {
   product: ProductType;
   onProductUpdated?: () => void,
 
-  error: string,
-  setError: (newError: string) => void,
+  showToastNotification: (newNotification: string) => void,
 };
+
+
+
 
 
 function AdminProduct(props: Props) {
@@ -37,9 +43,11 @@ function AdminProduct(props: Props) {
       await adminUpdateProduct(name, price, inStock, isAvailable, props.product.id);
       if (props.onProductUpdated) props.onProductUpdated();
       closeWindow();
+
+      props.showToastNotification(`Successfully updated product #${props.product.id}`)
     }
     catch (e: any) {
-      props.setError(parseError(e));
+      props.showToastNotification(parseError(e));
     }
   };
 
@@ -48,9 +56,11 @@ function AdminProduct(props: Props) {
       await adminDeleteProduct(props.product.id);
       if (props.onProductUpdated) props.onProductUpdated();
       closeWindow();
+
+      props.showToastNotification(`Deleted product #${props.product.id} successfully`);
     }
     catch (e) {
-      props.setError(parseError(e));
+      props.showToastNotification(parseError(e));
     }
   };
 
@@ -75,12 +85,12 @@ function AdminProduct(props: Props) {
       {isEditWindowOpen && editType === "update" && (
         <div className="type">
           <div className="title">Update Product</div>
-          <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}></input>
-          <input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(Number(e.target.value))}></input>
-          <input type="number" placeholder="In Stock" value={inStock} onChange={(e) => setInStock(Number(e.target.value))} ></input>
+          <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)}></input>
+          <input type="number" placeholder="Price" value={price} onChange={e => setPrice(Number(e.target.value))}></input>
+          <input type="number" placeholder="In Stock" value={inStock} onChange={e => setInStock(Number(e.target.value))} ></input>
           <label>
             Available:
-            <input type="checkbox" checked={isAvailable} onChange={(e) => setIsAvailable(e.target.checked)}></input>
+            <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)}></input>
           </label>
           <button onClick={closeWindow}>Cancel</button>
           <button className="save-button" onClick={handleUpdate}>Save</button>

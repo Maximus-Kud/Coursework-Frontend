@@ -1,10 +1,16 @@
 import type { ProductType } from "../../types/ProductType";
 
 
+
+
+
 type Props = {
   product: ProductType;
   onProductUpdated?: () => void,
 };
+
+
+
 
 
 function ShoppingCartProduct(props: Props) {  
@@ -18,5 +24,6 @@ function ShoppingCartProduct(props: Props) {
     </div>
   )
 }
+
 
 export default ShoppingCartProduct;

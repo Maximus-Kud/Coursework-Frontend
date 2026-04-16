@@ -22,6 +22,7 @@ HEX: #A9CCE3
 Серо-синий (тексты, подзаголовки) – нейтральный и контрастный для читаемости
 HEX: #5D6D7E */
 
+/* ============================== General Styles ============================== */
 * {
   font-family: 'Google-Sans-Regular';
   box-sizing: border-box;
@@ -36,10 +37,32 @@ button {
   cursor: pointer;
 }
 
+.close-button {
+  width: 30px;
+  height: 30px;
+
+  position: absolute;
+  top: 6%;
+  right: 5%;
+
+  transition: 0.3s;
+}
+.close-button:hover {
+  cursor: pointer;
+  transform: scale(1.2)
+}
+/* ============================================================================ */
 
 
 
 
+
+
+
+
+
+
+/* ============================== Top Part ============================== */
 #banner {
   display: flex;
   justify-content: center;
@@ -81,11 +104,18 @@ header div {
   cursor: pointer;
   background-color: #062a64;
 }
+/* ====================================================================== */
 
 
 
 
 
+
+
+
+
+
+/* ============================== Main Page ============================== */
 #main-page {
   background-color: #f5f9ff;
   min-height: calc(100vh - 40px - 5vh);
@@ -94,391 +124,18 @@ header div {
 #main-page div {
   color: #1a1a1a;
 }
+/* ======================================================================= */
 
 
 
-#top-menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
-  height: 4vh;
 
-  padding: 2px 300px;
-}
 
 
 
-#catalog {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
 
-#catalog svg {
-  height: 100%;
-  width: 30px;
-}
 
-#search {
-  width: 20vw;
-  height: 60%;
-}
-
-#search-input {
-  width: 100%;
-  height: 100%;
-
-  border: 1px solid #5d6d7e;
-  border-radius: 20px;
-
-  background-color: #ffffff;
-
-  padding: 0 20px;
-
-  display: flex;
-  align-items: center;
-
-  transition: 0.3s;
-}
-#search-input::placeholder {
-  color: #1a1a1a;
-
-  font-size: 18px;
-}
-#search-input:hover {
-  background-color: #e2e2e2;
-}
-
-
-#account {
-  display: flex;
-
-  position: relative;
-}
-
-#account svg {
-  height: 100%;
-  width: 40px;
-
-  border-radius: 10px;
-
-  padding: 5px;
-
-  transition: 0.3s;
-}
-#account svg:hover {
-  cursor: pointer;
-  background-color: #e6f0ff;
-}
-
-
-
-#account-window {
-  position: absolute;
-
-  width: 200px;
-  height: 400px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  gap: 10px;
-
-  border-radius: 20px;
-
-  padding: 20px 0;
-
-  background-color: #ffffff;
-
-  transform: translate(-80%, 10%);
-}
-
-#account-window div {
-  height: 7%;
-  width: 90%;
-
-  border-radius: 8px;  
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: 0.3s;
-}
-
-#account-email {
-}
-
-#login-button {
-  border: 2px solid #0a3d91;
-}
-#login-button:hover {
-  cursor: pointer;
-
-  background-color: #0a3d91;
-  color: #ffffff;
-}
-
-#log-out-button {
-  border: 2px solid #e63946;
-}
-#log-out-button:hover {
-  cursor: pointer;
-
-  background-color: #e63946;
-  color: #ffffff;
-}
-
-#shopping-cart-button {
-}
-#shopping-cart-button:hover {
-  cursor: pointer;
-  background-color: #e6f0ff;
-}
-
-#profile-button {
-}
-#profile-button:hover {
-  cursor: pointer;
-  background-color: #e6f0ff;
-}
-
-#settings-button {
-}
-#settings-button:hover {
-  cursor: pointer;
-  background-color: #e6f0ff;
-}
-
-#admin-panel-button {
-  border: 2px solid #000000;
-}
-#admin-panel-button:hover {
-  cursor: pointer;
-
-  background-color: #000000;
-  color: #ffffff;
-}
-
-
-
-#add-new-product {
-  margin: 30px 0;
-
-  background-color: #13cc4b;
-  color: #ffffff;
-
-  font-family: 'Google-Sans-Medium';
-  font-size: 20px;
-
-  padding: 7px 40px;
-
-  border: none;
-  border-radius: 15px;
-}
-#add-new-product:hover {
-  cursor: pointer;
-  background-color: #0e9c39
-};
-
-
-.login-window {
-}
-.login-window {
-  position: fixed;
-
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  width: 35%;
-  height: 40%;
-
-  border-radius: 20px;
-
-  background-color: #ffffff;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  gap: 20px;
-
-  z-index: 10;
-}
-
-.close-button {
-  width: 30px;
-  height: 30px;
-
-  position: absolute;
-  top: 6%;
-  right: 5%;
-}
-.close-button:hover {
-  cursor: pointer;
-}
-
-.login-inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  width: 50%;
-}
-.login-inputs input {
-  border: 1px solid #D6E4FF;
-  border-radius: 7px;
-
-  padding: 5px 10px;
-
-  font-size: 16px;
-}
-
-.login-button-big {
-  background-color: #0a5bff;
-  color: #ffffff;
-
-  font-family: 'Google-Sans-Bold';
-  font-size: 20px;
-
-  border: none;
-  border-radius: 10px;
-
-  width: 50%;
-  height: 9%;
-}
-.login-button-big:hover {
-  cursor: pointer;
-  background-color: #0847cc;
-}
-
-.dont-have-account {
-  font-size: 13px;
-}
-.have-account {
-  font-size: 13px;
-}
-
-.register-link {
-  text-decoration: underline;
-}
-.register-link:hover {
-  cursor: pointer;
-}
-
-.login-link {
-  text-decoration: underline;
-}
-.login-link:hover {
-  cursor: pointer;
-}
-
-.error-message {
-  position: absolute;
-
-  bottom: 8%;
-
-  background-color: #f8d7da;
-  color: #721c24;
-
-  padding: 5px 10px;
-  border-radius: 10px;
-
-  width: 80%;
-}
-
-
-
-#settings-page {
-  position: fixed;
-  background-color: #082b6b;
-
-  width: 40%;
-  height: 50%;
-
-  padding: 50px 30px;
-  border-radius: 20px;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  display: flex;
-
-  z-index: 10;
-}
-
-#settings-possibilities {
-  width: 20%;
-  height: 100%;
-  border-right: 1px solid #1a1a1a;
-
-  color: #ffffff;
-}
-#settings-possibilities div {
-  color: #ffffff;
-}
-
-#settings-sections {
-  padding: 0 30px;
-}
-#settings-sections div {
-  color: #ffffff;
-}
-
-#option-theme {
-  padding: 4px 10px;
-  border-radius: 10px;
-}
-#option-theme:hover {
-  cursor: pointer;
-  background-color: #062a64;
-}
-
-#possible-themes {
-  display: flex;
-  flex-direction: column;
-
-  gap: 20px;
-}
-
-.theme-option {
-  padding: 10px 15px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.theme-option:hover {
-  cursor: pointer;
-  background-color: #0a3d91;
-}
-
-.theme-option-text {
-  font-size: 24px;
-}
-
-#close-button {
-  position: absolute;
-  top: 50px;
-  right: 5%;
-}
-#close-button:hover {
-  cursor: pointer;
-}
-
-
-
-
-
+/* ============================== Double Banner ============================== */
 #double-banner {
   height: 400px;
 
@@ -504,11 +161,18 @@ header div {
 #double-banner img:hover {
   transform: scale(1.1);
 }
+/* =========================================================================== */
 
 
 
 
 
+
+
+
+
+
+/* ============================== Products ============================== */
 #products {
   margin-top: 100px;
 
@@ -522,7 +186,7 @@ header div {
 
 #products-title {
   font-family: 'Google-Sans-Medium';
-  font-size: 18px;
+  font-size: 20px;
 }
 
 
@@ -589,196 +253,4 @@ header div {
   cursor: pointer;
   background-color: #0847cc;
 }
-
-
-
-
-
-#admin-panel {
-  width: 100vw;
-  height: calc(100vh - 40px - 5vh);
-
-  background-color: #ffffff;
-
-  position: fixed;
-  bottom: 0;
-
-  padding: 50px;
-}
-
-
-
-#options-buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-#options-buttons .option-button {
-  background-color: #0847cc;
-  color: #ffffff;
-
-  border: none;
-  border-radius: 15px;
-
-  padding: 7px 40px;
-
-  font-size: 20px;
-}
-#options-buttons .option-button:hover {
-  background-color: #082b6b;
-}
-
-
-
-#product-section {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-
-.admin-product {
-  width: 80%;
-  border: 1px solid #062a64;
-  border-radius: 20px;
-
-  display: flex;
-  justify-content: space-between;
-
-  padding: 5px 10px;
-}
-
-
-.admin-product-info {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.admin-product-name {
-  font-family: 'Google-Sans-Bold';
-  font-size: 18px;
-}
-
-.admin-product-price {
-  font-family: 'Google-Sans-Bold';
-  font-size: 20px;
-
-  color: #0847cc !important;
-}
-
-
-.admin-product-actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  gap: 5px;
-}
-
-
-.admin-product-actions .update-button {
-  background-color: #0a5bff;
-  color: #ffffff;
-
-  border: none;
-  border-radius: 10px;
-
-  padding: 10px 20px;
-}
-.admin-product-actions .update-button:hover {
-  cursor: pointer;
-  background-color: #082b6b;
-}
-
-.admin-product-actions .delete-button {
-  background-color: #e63946;
-  color: #ffffff;
-
-  border: none;
-  border-radius: 10px;
-
-  padding: 10px 20px;
-}
-.admin-product-actions .delete-button:hover {
-  cursor: pointer;
-  background-color: #721c24;
-}
-
-
-
-.type {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  background-color: #ffffff;
-  padding: 20px;
-
-  border-radius: 15px;
-
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-
-  z-index: 10;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-}
-
-
-.type .title {
-  font-size: 20px;
-  font-family: 'Google-Sans-Bold';
-}
-
-.type input {
-  border: 1px solid #0847cc;
-  border-radius: 7px;
-
-  padding: 4px 10px;
-
-  background-color: #ffffff;
-}
-
-.type label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-
-.type button {
-  width: 100%;
-
-  background-color: #0847cc;
-  color: #ffffff;
-
-  border: none;
-  border-radius: 10px;
-
-  padding: 6px 12px;
-}
-.type button:hover {
-  cursor: pointer;
-  background-color: #062a64;
-}
-
-.type .save-button {
-  background-color: #13cc4b;
-}
-.type .save-button:hover {
-  background-color: #0e9c39;
-}
-
-.type .delete {
-  background-color: #e63946;
-}
-.type .delete:hover {
-  background-color: #721c24;
-}
+/* ====================================================================== */

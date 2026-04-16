@@ -10,6 +10,10 @@ type ApiConfig = {
   };
 };
 
+
+
+
+
 export const apiConfig: ApiConfig = {
   Authentication: {
     register: {

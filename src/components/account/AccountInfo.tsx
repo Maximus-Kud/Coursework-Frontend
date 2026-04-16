@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import { marketplaceGetAccountInfo } from '../services/api';
-import '../css/ShoppingCart.css';
+import { marketplaceGetAccountInfo } from '../../services/api';
+import '../../css/ShoppingCart.css';
+
+
+
+
 
 type AccountData = {
   id: number | string
@@ -14,6 +18,10 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
+
+
+
+
 
 function AccountInfo({ isOpen, onClose }: Props) {
   const [account, setAccount] = useState<AccountData | null>(null);
@@ -55,5 +63,6 @@ function AccountInfo({ isOpen, onClose }: Props) {
     </div>
   );
 }
+
 
 export default AccountInfo;

@@ -10,6 +10,12 @@ import Product from '../components/products/Product'
 import TopMenu from '../components/TopMenu'
 import AdminPanel from '../components/AdminPanel'
 import parseError from '../services/helper'
+import InlineNotification from '../components/notifications/InlineNotification'
+import type { AppNotification, NotificationType } from '../types/Notification'
+import ToastNotification from '../components/notifications/ToastNotification'
+import ModalNotification from '../components/notifications/ModalNotification'
+
+
 
 
 
@@ -19,19 +25,27 @@ function HomePage() {
 
   const [activeTheme, setActiveTheme] = useState('Light');
 
-  const [error, setError] = useState('');
+  const [inlineNotification, setInlineNotification] = useState<AppNotification | null>(null);
+  const [toastNotification, setToastNotification] = useState<AppNotification | null>(null);
+  const [modalNotification, setModalNotification] = useState<AppNotification | null>(null);
+
+  // const [inlineNotificationIsVisible, setInlineNotificationIsVisible] = useState(false);
+  // const [toastNotificationWindowIsOpen, setToastNotificationWindowIsOpen] = useState(false);
+  // const [modalNotificationWindowIsOpen, setModalNotificationWindowIsOpen] = useState(false);
+
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [loginWindowIsOpen, setLoginWindowIsOpen] = useState(false);
   const [registerWindowIsOpen, setRegisterWindowIsOpen] = useState(false);
-  const [settingsWindowIsOpen, setSettingsWindowIsOpen] = useState(false);
-  const [adminPanelIsOpen, setAdminPanelIsOpen] = useState(false);
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [settingsWindowIsOpen, setSettingsWindowIsOpen] = useState(false);
+  const [adminPanelIsOpen, setAdminPanelIsOpen] = useState(false);
+  
 
 
   const openLogin = () => {
@@ -40,7 +54,7 @@ function HomePage() {
     setSettingsWindowIsOpen(false);
     setAdminPanelIsOpen(false);
 
-    setError("");
+    setInlineNotification(null);
   };
 
   const openRegistration = () => {
@@ -49,7 +63,7 @@ function HomePage() {
     setSettingsWindowIsOpen(false);
     setAdminPanelIsOpen(false);
 
-    setError("");
+    setInlineNotification(null);
   };
 
   const openSettings = () => {
@@ -67,6 +81,51 @@ function HomePage() {
   }
 
 
+  const showInlineNotification = (message: string, type: NotificationType = 'info') => {
+    setInlineNotification({ message, type });
+    // setInlineNotificationIsVisible(true);
+
+    setToastNotification(null);
+    // setToastNotificationWindowIsOpen(false);
+
+    setModalNotification(null);
+    // setModalNotificationWindowIsOpen(false);
+  };
+
+  const showToastNotification = (message: string, type: NotificationType = 'info') => {
+    setInlineNotification(null);
+    // setInlineNotificationIsVisible(false);
+
+    setToastNotification({ message, type });
+    // setToastNotificationWindowIsOpen(true);
+
+    setModalNotification(null);
+    // setModalNotificationWindowIsOpen(false);
+  };
+
+  const showModalNotification = (message: string, type: NotificationType = 'info') => {
+    setInlineNotification(null);
+    // setInlineNotificationIsVisible(false);
+
+    setToastNotification(null);
+    // setToastNotificationWindowIsOpen(false);
+
+    setModalNotification({ message, type });
+    // setModalNotificationWindowIsOpen(true);
+  };
+
+  const clearAllNotifications = () => {
+    setInlineNotification(null);
+    // setInlineNotificationIsVisible(false);
+
+    setToastNotification(null);
+    // setToastNotificationWindowIsOpen(false);
+
+    setModalNotification(null);
+    // setModalNotificationWindowIsOpen(false);
+  }
+
+
 
   useEffect(() => {
     marketplaceGetAvailableProducts()
@@ -75,8 +134,7 @@ function HomePage() {
         setProducts(data.products ?? data);
       })
       .catch((e) => {
-        console.error("API error:", e);
-        setError(parseError(e));
+        showModalNotification(parseError(e), 'error');
       });
   }, []);
 
@@ -86,7 +144,7 @@ function HomePage() {
       setProducts(data.products ?? data);
     }
     catch (e: any) {
-      setError(parseError(e));
+      showModalNotification(parseError(e), 'error');
     }
   };
 
@@ -119,8 +177,15 @@ function HomePage() {
           cartProducts={cartProducts}
           setCartProducts={setCartProducts}
 
-          error={error}
-          setError={setError}
+
+          inlineNotification={inlineNotification}
+  
+          showInlineNotification={showInlineNotification}
+          showToastNotification={showToastNotification}
+          showModalNotification={showModalNotification}
+
+          clearAllNotifications={clearAllNotifications}
+
 
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
@@ -180,10 +245,32 @@ function HomePage() {
 
             products={products}
 
-            onProductUpdated={handleProductUpdated}
 
-            error={error}
-            setError={setError}
+            showInlineNotification={showInlineNotification}
+            showToastNotification={showToastNotification}
+            showModalNotification={showModalNotification}
+
+            clearAllNotifications={clearAllNotifications}
+
+
+            onProductUpdated={handleProductUpdated}
+          />
+        )}
+
+
+
+        {/* {inlineNotification && inlineNotificationIsVisible && ( */}
+        {toastNotification && (
+          <ToastNotification
+            notification={toastNotification}
+            closeAllNotifications={clearAllNotifications}
+          />
+        )}
+
+        {modalNotification && (
+          <ModalNotification
+            notification={modalNotification}
+            closeAllNotifications={clearAllNotifications}
           />
         )}
       </div>

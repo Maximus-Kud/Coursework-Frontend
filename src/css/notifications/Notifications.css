@@ -1,0 +1,161 @@
+/* ============================== Inline Notification ============================== */
+.inline-notification {
+  padding: 12px 16px;
+  border-radius: 8px;
+
+  margin: 10px 0;
+  font-family: 'Google-Sans-Medium';
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inline-notification:hover {
+  cursor: pointer;
+}
+
+
+
+
+
+/* ============================== Toast Notification ============================== */
+.toast-notification {
+  position: absolute;
+  bottom: 3%;
+  right: 3%;
+
+  padding: 10px 15px;
+  border-radius: 8px;
+
+  min-width: 200px;
+
+  display: flex;
+  justify-content: center;
+
+  transition: 0.2s;
+
+  overflow: hidden;
+}
+
+.toast-notification:hover {
+  cursor: pointer;
+}
+
+
+
+
+
+/* ============================== Modal Notification ============================== */
+.modal-notification {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+/* ============================== Types ============================== */
+.info {
+  background-color: #e7f3ff;
+  color: #084298;
+
+  border: 1px solid #b6d4fe;
+}
+
+.info:hover {
+  background-color: #d6e9ff;
+}
+
+
+
+
+
+.success {
+  background: #e6f9f0;
+  color: #0f5132;
+  
+  border: 1px solid #a3e4c2;
+}
+
+.success:hover {
+  background: #d1f2e0;
+}
+
+
+
+
+
+.warning {
+  background: #fff4e5;
+  color: #664d03;
+
+  border: 1px solid #ffdd99;
+}
+
+.warning:hover {
+  background: #ffe8cc;
+}
+
+
+
+
+
+.error {
+  background: #fdecea;
+  color: #842029;
+
+  border: 1px solid #f5c2c7;
+}
+
+.error:hover {
+  background: #fbd5d0;
+}
+
+
+
+
+
+
+
+
+
+
+/* ============================== Animation ============================== */
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  height: 3px;
+  width: 100%;
+
+  background-color: currentColor;
+
+  transform-origin: left;
+  animation: toast-timer 3s linear forwards;
+}
+
+
+
+
+
+@keyframes toast-timer {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}

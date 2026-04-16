@@ -1,0 +1,176 @@
+/* ============================== Only Top Menu ============================== */
+#top-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 4vh;
+
+  padding: 2px 300px;
+}
+
+
+
+#catalog {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#catalog svg {
+  height: 100%;
+  width: 30px;
+}
+
+#search {
+  width: 20vw;
+  height: 60%;
+}
+
+#search-input {
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid #5d6d7e;
+  border-radius: 20px;
+
+  background-color: #ffffff;
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+
+  transition: 0.3s;
+}
+#search-input::placeholder {
+  color: #1a1a1a;
+
+  font-size: 18px;
+}
+#search-input:hover {
+  background-color: #e2e2e2;
+}
+
+
+#account {
+  display: flex;
+
+  position: relative;
+}
+
+#account svg {
+  height: 100%;
+  width: 40px;
+
+  border-radius: 10px;
+
+  padding: 5px;
+
+  transition: 0.3s;
+}
+#account svg:hover {
+  cursor: pointer;
+  background-color: #e6f0ff;
+}
+/* =========================================================================== */
+
+
+
+
+
+
+
+
+
+
+/* ============================== Only Account Window ============================== */
+#account-window {
+  position: absolute;
+
+  width: 200px;
+  height: 400px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 10px;
+
+  border-radius: 20px;
+
+  padding: 20px 0;
+
+  background-color: #ffffff;
+
+  transform: translate(-80%, 10%);
+}
+
+#account-window div {
+  height: 7%;
+  width: 90%;
+
+  border-radius: 8px;  
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.3s;
+}
+
+#account-email {
+}
+
+#login-button {
+  border: 2px solid #0a3d91;
+}
+#login-button:hover {
+  cursor: pointer;
+
+  background-color: #0a3d91;
+  color: #ffffff;
+}
+
+#log-out-button {
+  border: 2px solid #e63946;
+}
+#log-out-button:hover {
+  cursor: pointer;
+
+  background-color: #e63946;
+  color: #ffffff;
+}
+
+#shopping-cart-button {
+}
+#shopping-cart-button:hover {
+  cursor: pointer;
+  background-color: #e6f0ff;
+}
+
+#profile-button {
+}
+#profile-button:hover {
+  cursor: pointer;
+  background-color: #e6f0ff;
+}
+
+#settings-button {
+}
+#settings-button:hover {
+  cursor: pointer;
+  background-color: #e6f0ff;
+}
+
+#admin-panel-button {
+  border: 2px solid #000000;
+}
+#admin-panel-button:hover {
+  cursor: pointer;
+
+  background-color: #000000;
+  color: #ffffff;
+}
+/* ================================================================================= */
