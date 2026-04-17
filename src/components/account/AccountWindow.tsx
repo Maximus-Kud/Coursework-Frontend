@@ -1,4 +1,4 @@
-import type { ProductType } from "../types/ProductType";
+import type { ProductType } from "../../types/ProductType";
 
 
 

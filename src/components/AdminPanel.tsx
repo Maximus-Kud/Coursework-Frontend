@@ -82,7 +82,14 @@ function AdminPanel(props: Props) {
 
   const handleAddProduct = async () => {
     try {
-      if (!newName || newPrice === undefined || newInStock === undefined) return;
+      if (!newName || newPrice === undefined || newInStock === undefined) {
+        props.showModalNotification("Inputs are not full", 'error');
+        return;
+      }
+      if (newPrice === undefined || newPrice < 0) {
+        props.showModalNotification("Price cannot be negative", 'error');
+        return;
+      }
 
       await adminAddProduct(newName, newPrice, newInStock);
       props.onProductUpdated();
@@ -207,9 +214,9 @@ function AdminPanel(props: Props) {
       {addProductWindowIsOpen && (
         <div className="window">
           <div className="title">Add New Product</div>
-          <input type="text" placeholder="Name" value={newName} onChange={e => setNewName(e.target.value)}></input>
-          <input type="number" placeholder="Price" value={newPrice ?? ""} min={0} onChange={e => setNewPrice(e.target.value ? Number(e.target.value) : undefined)}></input>
-          <input type="number" placeholder="In Stock" value={newInStock ?? ""} min={0} onChange={e => setNewInStock(Number(e.target.value))} ></input>
+          <input type="text" placeholder="Name" value={newName} onChange={e => setNewName(e.target.value)} />
+          <input type="number" placeholder="Price" value={newPrice ?? ""} min={0} onChange={e => setNewPrice(e.target.value ? Number(e.target.value) : undefined)} />
+          <input type="number" placeholder="In Stock" value={newInStock ?? ""} min={0} onChange={e => setNewInStock(Number(e.target.value))} />
           <button onClick={() => handleCancel(setAddProductWindowIsOpen)}>Cancel</button>
           <button className="save-button" onClick={handleAddProduct}>Add</button>
         </div>
@@ -267,8 +274,8 @@ function AdminPanel(props: Props) {
       {changeOrderStatusWindowIsOpen && (
         <div className="window">
           <div className="title">Change Order Status</div>
-          <input type="number" placeholder="Order ID" value={orderId} min={0} onChange={e => setOrderId(e.target.value ? Number(e.target.value) : "")}></input>
-          <input type="text" placeholder="New Status" value={orderStatus} onChange={e => setOrderStatus(e.target.value)}></input>
+          <input type="number" placeholder="Order ID" value={orderId} min={0} onChange={e => setOrderId(e.target.value ? Number(e.target.value) : "")} />
+          <input type="text" placeholder="New Status" value={orderStatus} onChange={e => setOrderStatus(e.target.value)} />
           <button onClick={() => setChangeOrderStatusWindowIsOpen(false)}>Cancel</button>
           <button className="save-button" onClick={handleChangeOrderStatus}>Save</button>
         </div>
@@ -278,8 +285,8 @@ function AdminPanel(props: Props) {
       {changeAccountBalanceWindowIsOpen && (
         <div className="window">
           <div className="title">Change Account Balance</div>
-          <input type="number" placeholder="Account ID" value={accountId} onChange={e => setAccountId(e.target.value)}></input>
-          <input type="number" placeholder="New Balance" value={accountBalance} min={0} onChange={e => setAccountBalance(e.target.value === "" ? "" : Number(e.target.value))}></input>
+          <input type="text" placeholder="Account ID" value={accountId} onChange={e => setAccountId(e.target.value)} />
+          <input type="number" placeholder="New Balance" value={accountBalance} min={0} onChange={e => setAccountBalance(e.target.value === "" ? "" : Number(e.target.value))} />
           <button onClick={() => setChangeAccountBalanceWindowIsOpen(false)}>Cancel</button>
           <button className="save-button" onClick={handleChangeAccountBalance}>Save</button>
         </div>

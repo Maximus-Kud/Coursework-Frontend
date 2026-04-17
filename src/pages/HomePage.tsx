@@ -21,7 +21,10 @@ import ModalNotification from '../components/notifications/ModalNotification'
 
 function HomePage() {
   const [products, setProducts] = useState<ProductType[]>([]);
-  const [cartProducts, setCartProducts] = useState<ProductType[]>([]);
+  const [cartProducts, setCartProducts] = useState<ProductType[]>(() => {
+    const saved = localStorage.getItem('cart');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const [activeTheme, setActiveTheme] = useState('Light');
 
@@ -29,18 +32,14 @@ function HomePage() {
   const [toastNotification, setToastNotification] = useState<AppNotification | null>(null);
   const [modalNotification, setModalNotification] = useState<AppNotification | null>(null);
 
-  // const [inlineNotificationIsVisible, setInlineNotificationIsVisible] = useState(false);
-  // const [toastNotificationWindowIsOpen, setToastNotificationWindowIsOpen] = useState(false);
-  // const [modalNotificationWindowIsOpen, setModalNotificationWindowIsOpen] = useState(false);
 
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const [loginWindowIsOpen, setLoginWindowIsOpen] = useState(false);
   const [registerWindowIsOpen, setRegisterWindowIsOpen] = useState(false);
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState(localStorage.getItem("username") || '');
+  const [email, setEmail] = useState(localStorage.getItem('email') || '');
   const [password, setPassword] = useState('');
 
   const [settingsWindowIsOpen, setSettingsWindowIsOpen] = useState(false);
@@ -83,46 +82,34 @@ function HomePage() {
 
   const showInlineNotification = (message: string, type: NotificationType = 'info') => {
     setInlineNotification({ message, type });
-    // setInlineNotificationIsVisible(true);
 
     setToastNotification(null);
-    // setToastNotificationWindowIsOpen(false);
 
     setModalNotification(null);
-    // setModalNotificationWindowIsOpen(false);
   };
 
   const showToastNotification = (message: string, type: NotificationType = 'info') => {
     setInlineNotification(null);
-    // setInlineNotificationIsVisible(false);
 
     setToastNotification({ message, type });
-    // setToastNotificationWindowIsOpen(true);
 
     setModalNotification(null);
-    // setModalNotificationWindowIsOpen(false);
   };
 
   const showModalNotification = (message: string, type: NotificationType = 'info') => {
     setInlineNotification(null);
-    // setInlineNotificationIsVisible(false);
 
     setToastNotification(null);
-    // setToastNotificationWindowIsOpen(false);
 
     setModalNotification({ message, type });
-    // setModalNotificationWindowIsOpen(true);
   };
 
   const clearAllNotifications = () => {
     setInlineNotification(null);
-    // setInlineNotificationIsVisible(false);
 
     setToastNotification(null);
-    // setToastNotificationWindowIsOpen(false);
 
     setModalNotification(null);
-    // setModalNotificationWindowIsOpen(false);
   }
 
 
@@ -138,26 +125,32 @@ function HomePage() {
       });
   }, []);
 
+
+
   const handleProductUpdated = async () => {
     try {
       const data = await marketplaceGetAvailableProducts();
       setProducts(data.products ?? data);
     }
-    catch (e: any) {
+    catch (e) {
       showModalNotification(parseError(e), 'error');
     }
   };
 
   const handleAddToCart = (product: ProductType) => {
-    setCartProducts((prevCart) => [...prevCart, product]);
+    setCartProducts(prev => [...prev, product]);
   };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+  }, [cartProducts]);
 
 
 
   return (
     <>
       <div id='banner'>
-        <img src={samsungBanner}></img>
+        <img src={samsungBanner} />
       </div>
 
 
@@ -219,8 +212,8 @@ function HomePage() {
 
         <div id='double-banner'>
           <div id='double-photos'>
-            <img src={macbookNeo}></img>
-            <img src={iphone17Pro}></img>
+            <img src={macbookNeo} />
+            <img src={iphone17Pro} />
           </div>
         </div>
 

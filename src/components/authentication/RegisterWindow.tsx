@@ -31,9 +31,9 @@ function RegisterWindow(props: Props) {
       <div className="title">Registration</div>
       
       <div className='inputs'>
-        <input type='text' placeholder='Username' value={props.username} onChange={e => props.setUsername(e.target.value)}></input>
-        <input type='text' placeholder='Email' value={props.email} onChange={e => props.setEmail(e.target.value)}></input>
-        <input type='password' placeholder='Password' value={props.password} onChange={e => props.setPassword(e.target.value)}></input>
+        <input type='text' placeholder='Username' value={props.username} onChange={e => props.setUsername(e.target.value)} />
+        <input type='text' placeholder='Email' value={props.email} onChange={e => props.setEmail(e.target.value)} />
+        <input type='password' placeholder='Password' value={props.password} onChange={e => props.setPassword(e.target.value)} />
       </div>
 
       <button className="action-button" onClick={props.handleRegister}>Register</button>

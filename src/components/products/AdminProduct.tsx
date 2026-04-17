@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { ProductType } from "../../types/ProductType";
 import { adminDeleteProduct, adminUpdateProduct } from "../../services/api";
 import parseError from "../../services/helper";
+import type { NotificationType } from "../../types/Notification";
 
 
 
@@ -11,7 +12,7 @@ type Props = {
   product: ProductType;
   onProductUpdated?: () => void,
 
-  showToastNotification: (newNotification: string) => void,
+  showToastNotification: (newNotification: string, type?: NotificationType) => void,
 };
 
 
@@ -40,14 +41,16 @@ function AdminProduct(props: Props) {
 
   const handleUpdate = async () => {
     try {
+      if (price < 0) return;
+      
       await adminUpdateProduct(name, price, inStock, isAvailable, props.product.id);
       if (props.onProductUpdated) props.onProductUpdated();
       closeWindow();
 
-      props.showToastNotification(`Successfully updated product #${props.product.id}`)
+      props.showToastNotification(`Successfully updated product #${props.product.id}`, 'success')
     }
-    catch (e: any) {
-      props.showToastNotification(parseError(e));
+    catch (e) {
+      props.showToastNotification(parseError(e), 'error');
     }
   };
 
@@ -57,10 +60,10 @@ function AdminProduct(props: Props) {
       if (props.onProductUpdated) props.onProductUpdated();
       closeWindow();
 
-      props.showToastNotification(`Deleted product #${props.product.id} successfully`);
+      props.showToastNotification(`Deleted product #${props.product.id} successfully`, 'success');
     }
     catch (e) {
-      props.showToastNotification(parseError(e));
+      props.showToastNotification(parseError(e), 'error');
     }
   };
 
@@ -69,7 +72,7 @@ function AdminProduct(props: Props) {
   return (
     <div className="admin-product">
       <div className="admin-product-info">
-        <img></img>
+        <img />
         <div className="admin-product-name">{props.product.name}</div>
         <div className='admin-product-price'>{props.product.price} $</div>
         <div className='admin-product-stock'>In Stock: {props.product.inStock}</div>
@@ -83,14 +86,14 @@ function AdminProduct(props: Props) {
 
 
       {isEditWindowOpen && editType === "update" && (
-        <div className="type">
+        <div className="window">
           <div className="title">Update Product</div>
-          <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)}></input>
-          <input type="number" placeholder="Price" value={price} onChange={e => setPrice(Number(e.target.value))}></input>
-          <input type="number" placeholder="In Stock" value={inStock} onChange={e => setInStock(Number(e.target.value))} ></input>
+          <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
+          <input type="number" min={0} placeholder="Price" value={price} onChange={e => setPrice(Number(e.target.value))} />
+          <input type="number" min={0} placeholder="In Stock" value={inStock} onChange={e => setInStock(Number(e.target.value))} />
           <label>
             Available:
-            <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)}></input>
+            <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
           </label>
           <button onClick={closeWindow}>Cancel</button>
           <button className="save-button" onClick={handleUpdate}>Save</button>
@@ -98,7 +101,7 @@ function AdminProduct(props: Props) {
       )}
 
       {isEditWindowOpen && editType === "delete" && (
-        <div className="type">
+        <div className="window">
           <div>Delete Product</div>
           <div>Are you sure you want to delete "{props.product.name}"?</div>
           <button onClick={closeWindow}>Cancel</button>

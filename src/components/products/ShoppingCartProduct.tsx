@@ -16,7 +16,7 @@ type Props = {
 function ShoppingCartProduct(props: Props) {  
   return (
     <div className="shopping-cart-product">
-      <img></img>
+      <img />
       <div className="admin-product-name">{props.product.name}</div>
       <div className='admin-product-price'>{props.product.price} $</div>
       <div className='admin-product-stock'>In Stock: {props.product.inStock}</div>

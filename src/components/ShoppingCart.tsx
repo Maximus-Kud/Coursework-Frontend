@@ -1,5 +1,6 @@
 import '../css/ShoppingCart.css'
 import { marketplaceOrder } from '../services/api';
+import type { NotificationType } from '../types/Notification';
 import type { ProductType } from '../types/ProductType';
 import ShoppingCartProduct from './products/ShoppingCartProduct';
 
@@ -17,6 +18,9 @@ type Props = {
 
   shoppingCartOpen: () => void,
   shoppingCartClose: () => void,
+
+  showToastNotification: (newMessage: string, type?: NotificationType) => void,
+  showModalNotification: (newMessage: string, type?: NotificationType) => void,
 }
 
 
@@ -35,14 +39,14 @@ function ShoppingCart(props: Props) {
       const productIds = props.products.map(p => p.id);
       const response = await marketplaceOrder(productIds);
       
-      alert(`Order #${response.orderId} placed successfully!`);
+      props.showToastNotification(`Order #${response.orderId} placed successfully!`, 'success');
       
       props.clearCart();
       if (props.onOrderSuccess) props.onOrderSuccess();
       props.shoppingCartClose();
     }
     catch (error) {
-      alert('Failed to place order.');
+      props.showModalNotification('Failed to place order', 'error');
     }
   };
 

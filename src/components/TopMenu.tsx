@@ -88,7 +88,7 @@ function TopMenu(props: Props) {
       
       props.showInlineNotification('Registered successfully', 'success');
     }
-    catch (e: any) {
+    catch (e) {
       props.showInlineNotification(parseError(e), 'error');
     }
   };
@@ -107,15 +107,20 @@ function TopMenu(props: Props) {
 
       props.showToastNotification('Logged in successfully', 'success');
     }
-    catch (e: any) {
+    catch (e) {
       props.showInlineNotification(parseError(e), 'error');
     }
   }
 
   const handleLogOut = async () => {
     try {
+      props.setUsername("");
       props.setEmail("");
+      props.setPassword("")
       props.setIsLoggedIn(false);
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
 
       props.loginClose();
       props.registerClose();
@@ -123,7 +128,7 @@ function TopMenu(props: Props) {
 
       props.showToastNotification('Logged out', 'info');
     }
-    catch (e: any) {
+    catch (e) {
       props.showToastNotification(parseError(e), 'error');
     }
   }
@@ -140,7 +145,7 @@ function TopMenu(props: Props) {
       </div>
 
       <div id='search'>
-        <input type='text' placeholder='Search...' id='search-input'></input>
+        <input type='text' placeholder='Search...' id='search-input' />
       </div>
 
       <div id='account' onClick={() => setAccountWindowIsOpen(prev => !prev)}>
@@ -176,6 +181,9 @@ function TopMenu(props: Props) {
           shoppingCartIsOpen={shoppingCartIsOpen}
           shoppingCartOpen={() => setShoppingCartIsOpen(true)}
           shoppingCartClose={() => setShoppingCartIsOpen(false)}
+
+          showToastNotification={props.showToastNotification}
+          showModalNotification={props.showModalNotification}
         />
       )}
 

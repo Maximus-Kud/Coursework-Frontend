@@ -16,7 +16,7 @@ type Props = {
 function Product(props: Props) {
   return (
     <div className='product'>
-      <img src={props.product.image}></img>
+      <img src={props.product.image} />
       <div className='product-name'>{props.product.name}</div>
       <div className='product-price'>{props.product.price} $</div>
       <div className='product-stock'>In Stock: {props.product.inStock}</div>

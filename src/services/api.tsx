@@ -45,6 +45,8 @@ export async function callApi(controller: keyof typeof apiConfig, endpoint: keyo
 
   if (endpoint === 'login' && result.token) {
     localStorage.setItem("token", result.token);
+    localStorage.setItem("username", result.user);
+    localStorage.setItem("email", result.email);
   }
 
 
