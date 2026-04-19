@@ -5,7 +5,7 @@
 
   transform: translate(-50%, -50%);
 
-  background-color: #ffffff;
+  background-color: var(--bg-main);
 
   padding: 20px;
   border-radius: 10px;
@@ -37,11 +37,12 @@
 
 
 #load-logs-button {
-  background-color: #ffffff;
+  background-color: var(--secondary-bg);
+  color: var(--text-main);
 
   font-size: 15px;
 
-  border: 2px solid #53c8ff;
+  border: 2px solid var(--accent-cyan);
   border-radius: 7px;
 
   padding: 5px 0;
@@ -50,8 +51,8 @@
   transition: 0.2s;
 }
 #load-logs-button:hover {
-  background-color: #53c8ff;
-  color: #ffffff;
+  background-color: var(--accent-cyan);
+  color: var(--text-white);
 }
 
 
@@ -61,7 +62,7 @@
   overflow-y: auto;
   max-height: calc(100% - 60px);
 
-  border-top: 2px solid #53c8ff;
+  border-top: 2px solid var(--accent-cyan);
 
   padding: 2px;
 }

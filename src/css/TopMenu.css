@@ -1,3 +1,24 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: var(--bg-overlay);
+
+  backdrop-filter: blur(4px);
+
+  z-index: 9;
+
+  animation: fade-in 0.2s ease-out;
+}
+
+
+
+
+
 /* ============================== Only Top Menu ============================== */
 #top-menu {
   display: flex;
@@ -21,7 +42,7 @@
 }
 #catalog:hover {
   cursor: pointer;
-  background-color: #b1b1b1;
+  background-color: var(--info-bg);
 }
 
 #catalog svg {
@@ -38,25 +59,16 @@
   width: 100%;
   height: 100%;
 
-  border: 1px solid #5d6d7e;
-  border-radius: 20px;
-
-  background-color: #ffffff;
-
   padding: 0 20px;
 
   display: flex;
   align-items: center;
-
-  transition: 0.3s;
 }
 #search-input::placeholder {
-  color: #1a1a1a;
-
-  font-size: 18px;
+  font-size: 16px;
 }
 #search-input:hover {
-  background-color: #e2e2e2;
+  background-color: var(--info-bg);
 }
 
 
@@ -78,7 +90,7 @@
 }
 #account svg:hover {
   cursor: pointer;
-  background-color: #e6f0ff;
+  background-color: var(--info-bg);
 }
 /* =========================================================================== */
 
@@ -109,9 +121,13 @@
 
   padding: 20px 0;
 
-  background-color: #ffffff;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-main);
+  box-shadow: 0 8px 25px rgba(10, 61, 145, 0.12);
 
   transform: translate(-80%, 10%);
+
+  animation: dropdown-open 0.25s ease-out;
 }
 
 
@@ -130,81 +146,100 @@
 
 
 
-#account-email {
-}
-
-
-
 #login-button {
-  border: 2px solid #0a3d91;
+  border: 2px solid var(--accent-blue);
 }
 #login-button:hover {
   cursor: pointer;
 
-  background-color: #0a3d91;
-  color: #ffffff;
+  background-color: var(--accent-blue-hover);
+  color: var(--text-white);
 }
 
 
 
 #log-out-button {
-  border: 2px solid #e63946;
+  border: 2px solid var(--accent-red);
 }
 #log-out-button:hover {
   cursor: pointer;
 
-  background-color: #e63946;
-  color: #ffffff;
+  background-color: var(--accent-red-hover);
+  border: 2px solid var(--accent-red-hover);
+  color: var(--text-white);
 }
 
 
 
-#shopping-cart-button {
-}
 #shopping-cart-button:hover {
   cursor: pointer;
-  background-color: #e6f0ff;
+  background-color: var(--secondary-bg);
 }
 
 
 
-#profile-button {
-}
 #profile-button:hover {
   cursor: pointer;
-  background-color: #e6f0ff;
+  background-color: var(--secondary-bg);
 }
 
 
 
-#settings-button {
-}
 #settings-button:hover {
   cursor: pointer;
-  background-color: #e6f0ff;
+  background-color: var(--secondary-bg);
 }
 
 
 
 #admin-panel-button {
-  border: 2px solid #000000;
+  border: 2px solid var(--text-main);
 }
 #admin-panel-button:hover {
   cursor: pointer;
 
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--text-main);
+  color: var(--reverse-text-color);
 }
 
 
 
 #logs-button {
-  border: 2px solid #48ff58;
+  border: 2px solid var(--accent-green);
 }
 #logs-button:hover {
   cursor: pointer;
 
-  background-color: #48ff58;
-  color: #ffffff;
+  background-color: var(--accent-green-hover);
+  color: var(--text-white);
 }
 /* ================================================================================= */
+
+
+
+
+
+/* ============================== Animations ============================== */
+@keyframes dropdown-open {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+
+  to {
+    height: 400px;
+    opacity: 1;
+  }
+}
+
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

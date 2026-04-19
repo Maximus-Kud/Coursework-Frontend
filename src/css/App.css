@@ -13,24 +13,22 @@
   src: url('../assets/Google_Sans/static/GoogleSans-Bold.ttf');
 }
 
-/* Темно-синий (основной фон/шапка) – создаёт ощущение надёжности и технологичности
-HEX: #1F3A93
-Средний синий (акценты, кнопки, ссылки) – добавляет свежести и динамики
-HEX: #3B5998
-Светло-голубой (фон блоков, карточек) – облегчает восприятие и делает интерфейс «легким»
-HEX: #A9CCE3
-Серо-синий (тексты, подзаголовки) – нейтральный и контрастный для читаемости
-HEX: #5D6D7E */
+
+
+
 
 /* ============================== General Styles ============================== */
 * {
   font-family: 'Google-Sans-Regular';
   box-sizing: border-box;
+
+  transition: 0.2s;
 }
 
 
 body {
   margin: 0;
+  background-color: var(--bg-main);
 }
 
 button {
@@ -41,6 +39,8 @@ button {
   width: 30px;
   height: 30px;
 
+  color: var(--text-main);
+
   position: absolute;
   top: 6%;
   right: 5%;
@@ -50,6 +50,28 @@ button {
 .close-button:hover {
   cursor: pointer;
   transform: scale(1.2)
+}
+
+
+
+.theme-icon {
+  color: var(--text-main);
+}
+
+
+
+input {
+  background-color: var(--input-bg);
+  color: var(--text-main);
+
+  border: 1px solid var(--border-main);
+  border-radius: 7px;
+
+  transition: 0.2s;
+}
+
+input::placeholder {
+  color: var(--text-secondary);
 }
 /* ============================================================================ */
 
@@ -67,7 +89,7 @@ button {
   display: flex;
   justify-content: center;
 
-  background-color: #fff;
+  background-color: var(--bg-main);
 
   height: 40px;
 }
@@ -78,7 +100,7 @@ header {
   justify-content: space-between;
   align-items: center;
 
-  background-color: #0a3d91;
+  background-color: var(--info-color);
 
   height: 5vh;
 
@@ -89,7 +111,7 @@ header {
 
 header div {
   font-family: 'Google-Sans-Bold';
-  color: #fff;
+  color: var(--text-white);
 }
 
 .theme-icon {
@@ -102,7 +124,7 @@ header div {
 }
 #theme-icons svg:hover {
   cursor: pointer;
-  background-color: #062a64;
+  background-color: var(--info-hover);
 }
 /* ====================================================================== */
 
@@ -117,12 +139,12 @@ header div {
 
 /* ============================== Main Page ============================== */
 #main-page {
-  background-color: #f5f9ff;
+  background-color: var(--bg-main);
   min-height: calc(100vh - 40px - 5vh);
 }
 
 #main-page div {
-  color: #1a1a1a;
+  color: var(--text-main);
 }
 /* ======================================================================= */
 
@@ -146,7 +168,6 @@ header div {
 }
 
 #double-photos {
-  /* border: 1px solid #5d6d7e; */
   border-radius: 20px;
 
   display: flex;
@@ -199,8 +220,9 @@ header div {
 
 
 .product {
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(10, 61, 145, 0.08);
 
   padding: 10px 20px;
 
@@ -212,34 +234,34 @@ header div {
 }
 .product:hover {
   cursor: pointer;
-  background-color: #e6f0ff;
+  background-color: var(--secondary-bg);
 
   box-shadow: 5px 5px 0 rgba(10, 61, 145, 0.08);
 }
 
 .product-name {
-  color: #1a1a1a !important;
+  color: var(--text-main) !important;
 
   font-family: 'Google-Sans-Medium';
   font-size: 20px;
 }
 
 .product-price {
-  color: #0a3d91 !important;
+  color: var(--primary) !important;
 
   font-family: 'Google-Sans-Bold';
   font-size: 24px;
 }
 
 .product-stock {
-  color: #5a6b85 !important;
+  color: var(--text-secondary) !important;
 }
 
 .buy-button {
   margin-top: 20px;
 
-  background-color: #0a5bff;
-  color: #ffffff;
+  background-color: var(--primary);
+  color: var(--text-white);
 
   padding: 8px 50px;
 
@@ -251,6 +273,6 @@ header div {
 }
 .buy-button:hover {
   cursor: pointer;
-  background-color: #0847cc;
+  background-color: var(--primary-hover);
 }
 /* ====================================================================== */

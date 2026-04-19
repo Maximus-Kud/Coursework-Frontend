@@ -1,7 +1,6 @@
 import { localhost } from "../config/constants";
-import type { ProductType } from "../types/ProductType";
 import { apiConfig } from "../config/apiConfig";
-import { setWithExpiry } from "./storage";
+import { getWithExpiry, setWithExpiry } from "./storage";
 
 
 
@@ -16,11 +15,13 @@ export async function callApi(controller: keyof typeof apiConfig, endpoint: keyo
   if (endpoint) url += `/${endpoint}`;
   if (config.id && id) url += `/${id}`;
 
+  const token = getWithExpiry("token");
+
   const options: RequestInit = {
     method: config.method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: localStorage.getItem("token") ? `Bearer ${localStorage.getItem("token")}` : "",
+      Authorization: token ? `Bearer ${token}` : "",
     },
   };
 

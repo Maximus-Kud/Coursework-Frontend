@@ -1,12 +1,16 @@
 /* ============================== Admin Panel ============================== */
 #admin-panel {
-  width: 100vw;
-  height: calc(100vh - 40px - 5vh);
-
-  background-color: #ffffff;
-
   position: fixed;
-  bottom: 0;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: var(--bg-main);
+
+  overflow-y: auto;
 
   padding: 50px;
 }
@@ -31,8 +35,8 @@
 
 
 #options-buttons .option-button {
-  background-color: #0847cc;
-  color: #ffffff;
+  background-color: var(--accent-blue);
+  color: var(--text-white);
 
   border: none;
   border-radius: 15px;
@@ -42,7 +46,7 @@
   font-size: 20px;
 }
 #options-buttons .option-button:hover {
-  background-color: #082b6b;
+  background-color: var(--accent-blue-hover);
 }
 
 
@@ -50,8 +54,8 @@
 #add-new-product {
   margin: 30px 0;
 
-  background-color: #13cc4b;
-  color: #ffffff;
+  background-color: var(--accent-green);
+  color: var(--text-white);
 
   font-family: 'Google-Sans-Medium';
   font-size: 20px;
@@ -63,7 +67,7 @@
 }
 #add-new-product:hover {
   cursor: pointer;
-  background-color: #0e9c39
+  background-color: var(--accent-green-hover)
 }
 /* ============================================================================ */
 
@@ -86,7 +90,7 @@
 
 .admin-product {
   width: 80%;
-  border: 1px solid #062a64;
+  border: 1px solid var(--border-main);
   border-radius: 20px;
 
   display: flex;
@@ -111,7 +115,7 @@
   font-family: 'Google-Sans-Bold';
   font-size: 20px;
 
-  color: #0847cc !important;
+  color: var(--primary) !important;
 }
 
 
@@ -126,8 +130,8 @@
 
 
 .admin-product-actions .update-button {
-  background-color: #0a5bff;
-  color: #ffffff;
+  background-color: var(--accent-blue);
+  color: var(--text-white);
 
   border: none;
   border-radius: 10px;
@@ -136,12 +140,12 @@
 }
 .admin-product-actions .update-button:hover {
   cursor: pointer;
-  background-color: #082b6b;
+  background-color: var(--accent-blue-hover);
 }
 
 .admin-product-actions .delete-button {
-  background-color: #e63946;
-  color: #ffffff;
+  background-color: var(--accent-red);
+  color: var(--text-white);
 
   border: none;
   border-radius: 10px;
@@ -150,7 +154,7 @@
 }
 .admin-product-actions .delete-button:hover {
   cursor: pointer;
-  background-color: #721c24;
+  background-color: var(--accent-red-hover);
 }
 /* ============================================================================ */
 
@@ -163,12 +167,13 @@
 
   transform: translate(-50%, -50%);
 
-  background-color: #ffffff;
-  padding: 20px;
+  background-color: var(--bg-modal);
+  padding: 25px;
 
   border-radius: 15px;
+  border: 1px solid var(--border-main);
 
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-modal);
 
   z-index: 10;
 
@@ -176,6 +181,8 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
+
+  animation: scale-in 0.2s ease-out;
 }
 
 
@@ -185,12 +192,7 @@
 }
 
 .window input {
-  border: 1px solid #0847cc;
-  border-radius: 7px;
-
   padding: 4px 10px;
-
-  background-color: #ffffff;
 }
 
 .window label {
@@ -203,8 +205,8 @@
 .window button {
   width: 100%;
 
-  background-color: #0847cc;
-  color: #ffffff;
+  background-color: var(--accent-blue);
+  color: var(--text-white);
 
   border: none;
   border-radius: 10px;
@@ -213,19 +215,36 @@
 }
 .window button:hover {
   cursor: pointer;
-  background-color: #062a64;
+  background-color: var(--accent-blue-hover);
 }
 
 .window .save-button {
-  background-color: #13cc4b;
+  background-color: var(--accent-green);
 }
 .window .save-button:hover {
-  background-color: #0e9c39;
+  background-color: var(--accent-green-hover);
 }
 
 .window .delete {
-  background-color: #e63946;
+  background-color: var(--accent-red);
 }
 .window .delete:hover {
-  background-color: #721c24;
+  background-color: var(--accent-red-hover);
+}
+
+
+
+
+
+/* ============================== Animations ============================== */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }

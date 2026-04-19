@@ -73,14 +73,14 @@
 
 /* ============================== Types ============================== */
 .info {
-  background-color: #e7f3ff;
-  color: #084298;
+  background-color: var(--info-bg);
+  color: var(--info-color);
 
-  border: 1px solid #b6d4fe;
+  border: 1px solid var(--info-border);
 }
 
 .info:hover {
-  background-color: #d6e9ff;
+  background-color: var(--info-hover);
 }
 
 
@@ -88,14 +88,14 @@
 
 
 .success {
-  background: #e6f9f0;
-  color: #0f5132;
+  background: var(--success-bg);
+  color: var(--success-color);
   
-  border: 1px solid #a3e4c2;
+  border: 1px solid var(--success-border);
 }
 
 .success:hover {
-  background: #d1f2e0;
+  background: var(--success-hover);
 }
 
 
@@ -103,14 +103,14 @@
 
 
 .warning {
-  background: #fff4e5;
-  color: #664d03;
-
-  border: 1px solid #ffdd99;
+  background: var(--warning-bg);
+  color: var(--warning-color);
+  
+  border: 1px solid var(--warning-border);
 }
 
 .warning:hover {
-  background: #ffe8cc;
+  background: var(--warning-hover);
 }
 
 
@@ -118,14 +118,14 @@
 
 
 .error {
-  background: #fdecea;
-  color: #842029;
-
-  border: 1px solid #f5c2c7;
+  background: var(--error-bg);
+  color: var(--error-color);
+  
+  border: 1px solid var(--error-border);
 }
 
 .error:hover {
-  background: #fbd5d0;
+  background: var(--error-hover);
 }
 
 

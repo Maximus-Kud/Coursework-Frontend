@@ -1,6 +1,9 @@
 #settings-page {
   position: fixed;
-  background-color: #082b6b;
+  background-color: var(--bg-modal);
+  border: 1px solid var(--border-main);
+
+  color: var(--text-main);
 
   width: 40%;
   height: 50%;
@@ -20,7 +23,7 @@
 #settings-possibilities {
   width: 20%;
   height: 100%;
-  border-right: 1px solid #1a1a1a;
+  border-right: 1px solid var(--border-main);
 
   color: #ffffff;
 }
@@ -41,7 +44,7 @@
 }
 #option-theme:hover {
   cursor: pointer;
-  background-color: #062a64;
+  background-color: var(--secondary-bg);
 }
 
 #possible-themes {
@@ -62,7 +65,7 @@
 
 .theme-option:hover {
   cursor: pointer;
-  background-color: #0a3d91;
+  background-color: var(--secondary-bg);
 }
 
 .theme-option-text {

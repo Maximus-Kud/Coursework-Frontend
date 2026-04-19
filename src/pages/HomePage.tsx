@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import samsungBanner from '../assets/Banners/samsung-banner.avif'
 
@@ -10,7 +10,6 @@ import Product from '../components/products/Product'
 import TopMenu from '../components/TopMenu'
 import AdminPanel from '../components/special roles/AdminPanel'
 import parseError from '../services/helper'
-import InlineNotification from '../components/notifications/InlineNotification'
 import type { AppNotification, NotificationType } from '../types/Notification'
 import ToastNotification from '../components/notifications/ToastNotification'
 import ModalNotification from '../components/notifications/ModalNotification'
@@ -26,6 +25,7 @@ import '../css/SettingsWindow.css'
 import '../css/ShoppingCart.css'
 import '../css/Logs.css'
 import '../css/CatalogWindow.css'
+import '../css/themes.css'
 
 
 
@@ -153,6 +153,25 @@ function HomePage() {
     setCartProducts(prev => [...prev, product]);
   };
 
+
+
+  useEffect(() => {
+    document.body.setAttribute(
+      "data-theme",
+      activeTheme.toLowerCase()
+    );
+
+    localStorage.setItem('theme', activeTheme);
+  }, [activeTheme]);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || 'Light';
+
+    setActiveTheme(savedTheme);
+  }, []);
+
+
+  
   useEffect(() => {
     if (cartProducts.length > 0) {
       setWithExpiry('cart', cartProducts, 3);

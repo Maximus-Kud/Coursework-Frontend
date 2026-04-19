@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { adminAddProduct, adminChangeAccountBalance, adminChangeOrderStatus, adminGetOrdersInShoppingCart, adminGetOrdersPurchased, adminGetUsers, marketplaceGetAvailableProducts } from "../../services/api";
+import { adminAddProduct, adminChangeAccountBalance, adminChangeOrderStatus, adminGetOrdersInShoppingCart, adminGetOrdersPurchased, adminGetUsers } from "../../services/api";
 import type { ProductType } from "../../types/ProductType";
 import AdminProduct from "../products/AdminProduct";
 import parseError from "../../services/helper";
@@ -210,83 +210,95 @@ function AdminPanel(props: Props) {
 
 
       {addProductWindowIsOpen && (
-        <div className="window">
-          <div className="title">Add New Product</div>
-          <input type="text" placeholder="Name" value={newName} onChange={e => setNewName(e.target.value)} />
-          <input type="number" placeholder="Price" value={newPrice ?? ""} min={0} onChange={e => setNewPrice(e.target.value ? Number(e.target.value) : undefined)} />
-          <input type="number" placeholder="In Stock" value={newInStock ?? ""} min={0} onChange={e => setNewInStock(Number(e.target.value))} />
-          <button onClick={() => handleCancel(setAddProductWindowIsOpen)}>Cancel</button>
-          <button className="save-button" onClick={handleAddProduct}>Add</button>
+        <div className="modal-overlay">
+          <div className="window">
+            <div className="title">Add New Product</div>
+            <input type="text" placeholder="Name" value={newName} onChange={e => setNewName(e.target.value)} />
+            <input type="number" placeholder="Price" value={newPrice ?? ""} min={0} onChange={e => setNewPrice(e.target.value ? Number(e.target.value) : undefined)} />
+            <input type="number" placeholder="In Stock" value={newInStock ?? ""} min={0} onChange={e => setNewInStock(Number(e.target.value))} />
+            <button onClick={() => handleCancel(setAddProductWindowIsOpen)}>Cancel</button>
+            <button className="save-button" onClick={handleAddProduct}>Add</button>
+          </div>
         </div>
       )}
 
 
       {getUsersWindowIsOpen && users && (
-        <div className="window">
-          <div className="title">Users</div>
-          <div>
-            <>Admins:</>
-            {users.admins?.map(u => <div key={u.id}>{u.userName} (ID: {u.id})</div>)}
-            <br/>
-            <>Customers:</>
-            {users.customers?.map(u => <div key={u.id}>{u.userName} (ID: {u.id})</div>)}
+        <div className="modal-overlay">
+          <div className="window">
+            <div className="title">Users</div>
+            <div>
+              <>Admins:</>
+              {users.admins?.map(u => <div key={u.id}>{u.userName} (ID: {u.id})</div>)}
+              <br/>
+              <>Customers:</>
+              {users.customers?.map(u => <div key={u.id}>{u.userName} (ID: {u.id})</div>)}
+            </div>
+            <button onClick={() => setGetUsersWindowIsOpen(false)}>Close</button>
           </div>
-          <button onClick={() => setGetUsersWindowIsOpen(false)}>Close</button>
         </div>
       )}
 
 
       {getOrdersInShoppingCartWindowIsOpen && (
-        <div className="window admin-orders-list">
-          <div className="title">Orders in Shopping Cart</div>
-          <div className="orders-container">
-            {ordersInShoppingCart.length > 0 ? ordersInShoppingCart.map(order => (
-              <div key={order.id} className="order-card">
-                <div><span style={{fontFamily: 'Google-Sans-Medium'}}>Order ID:</span> {order.id}</div>
-                <div><span style={{fontFamily: 'Google-Sans-Medium'}}>User ID:</span> {order.userId}</div>
-                <div><span style={{fontFamily: 'Google-Sans-Medium'}}>Total:</span> {order.totalPrice} $</div>
-                
-                <div className="order-actions">
-                  <button style={{marginBottom: '10px'}} className="approve-button" onClick={() => handleQuickChangeStatus(order.id, "Purchased")}>Approve (Purchase)</button>
-                  <button className="cancel-button" onClick={() => handleQuickChangeStatus(order.id, "Cancelled")}>Cancel</button>
+        <div className="modal-overlay">
+          <div className="window admin-orders-list">
+            <div className="title">Orders in Shopping Cart</div>
+            <div className="orders-container">
+              {ordersInShoppingCart.length > 0 ? ordersInShoppingCart.map(order => (
+                <div key={order.id} className="order-card">
+                  <div><span style={{fontFamily: 'Google-Sans-Medium'}}>Order ID:</span> {order.id}</div>
+                  <div><span style={{fontFamily: 'Google-Sans-Medium'}}>User ID:</span> {order.userId}</div>
+                  <div><span style={{fontFamily: 'Google-Sans-Medium'}}>Total:</span> {order.totalPrice} $</div>
+                  
+                  <div className="order-actions">
+                    <button style={{marginBottom: '10px'}} className="approve-button" onClick={() => handleQuickChangeStatus(order.id, "Purchased")}>Approve (Purchase)</button>
+                    <button className="cancel-button" onClick={() => handleQuickChangeStatus(order.id, "Cancelled")}>Cancel</button>
+                  </div>
                 </div>
-              </div>
-            )) : "No orders found."}
+              )) : "No orders found."}
+            </div>
+            <button onClick={() => setGetOrdersInShoppingCartWindowIsOpen(false)}>Close</button>
           </div>
-          <button onClick={() => setGetOrdersInShoppingCartWindowIsOpen(false)}>Close</button>
         </div>
       )}
 
 
       {getOrdersPurchasedWindowIsOpen && (
-        <div className="window">
-          <div className="title">Orders Purchased</div>
-          <div>{ordersPurchased.length > 0 ? ordersPurchased.map(order => (
-            <div key={order.id}>Order #{order.id}</div>
-          )) : "No purchased orders."}</div>
-          <button onClick={() => setGetOrdersPurchasedWindowIsOpen(false)}>Close</button>
+        <div className="modal-overlay">
+          <div className="window">
+            <div className="title">Orders Purchased</div>
+            <div>{ordersPurchased.length > 0 ? ordersPurchased.map(order => (
+              <div key={order.id}>Order #{order.id}</div>
+            )) : "No purchased orders."}</div>
+            <button onClick={() => setGetOrdersPurchasedWindowIsOpen(false)}>Close</button>
+          </div>
         </div>
       )}
 
 
       {changeOrderStatusWindowIsOpen && (
-        <div className="window">
-          <div className="title">Change Order Status</div>
-          <input type="number" placeholder="Order ID" value={orderId} min={0} onChange={e => setOrderId(e.target.value ? Number(e.target.value) : "")} />
-          <input type="text" placeholder="New Status" value={orderStatus} onChange={e => setOrderStatus(e.target.value)} />
-          <button onClick={() => setChangeOrderStatusWindowIsOpen(false)}>Cancel</button>
-          <button className="save-button" onClick={handleChangeOrderStatus}>Save</button>
+        <div className="modal-overlay">
+          <div className="window">
+            <div className="title">Change Order Status</div>
+            <input type="number" placeholder="Order ID" value={orderId} min={0} onChange={e => setOrderId(e.target.value ? Number(e.target.value) : "")} />
+            <input type="text" placeholder="New Status" value={orderStatus} onChange={e => setOrderStatus(e.target.value)} />
+            <button onClick={() => setChangeOrderStatusWindowIsOpen(false)}>Cancel</button>
+            <button className="save-button" onClick={handleChangeOrderStatus}>Save</button>
+          </div>
         </div>
       )}
 
 
       {changeAccountBalanceWindowIsOpen && (
-        <div className="window">
-          <div className="title">Change Account Balance</div>
-          <input type="text" placeholder="Account ID" value={accountId} onChange={e => setAccountId(e.target.value)} />
-          <input type="number" placeholder="New Balance" value={accountBalance} min={0} onChange={e => setAccountBalance(e.target.value === "" ? "" : Number(e.target.value))} />
-          <button onClick={() => setChangeAccountBalanceWindowIsOpen(false)}>Cancel</button>
-          <button className="save-button" onClick={handleChangeAccountBalance}>Save</button>
+        <div className="modal-overlay">
+          <div className="window">
+            <div className="title">Change Account Balance</div>
+            <input type="text" placeholder="Account ID" value={accountId} onChange={e => setAccountId(e.target.value)} />
+            <input type="number" placeholder="New Balance" value={accountBalance} min={0} onChange={e => setAccountBalance(e.target.value === "" ? "" : Number(e.target.value))} />
+            <button onClick={() => setChangeAccountBalanceWindowIsOpen(false)}>Cancel</button>
+            <button className="save-button" onClick={handleChangeAccountBalance}>Save</button>
+          </div>
         </div>
       )}
 
@@ -304,7 +316,7 @@ function AdminPanel(props: Props) {
         ))) : <div>No products</div>}
       </div>
 
-      <svg className='close-button' onClick={props.adminPanelClose} width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.293 5.293a1 1 0 0 1 1.414 0L12 10.586l5.293-5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 0 1 0-1.414z" fill="#0D0D0D"/></svg>
+      <svg className='close-button' onClick={props.adminPanelClose} width="800px" height="800px" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.293 5.293a1 1 0 0 1 1.414 0L12 10.586l5.293-5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 0 1 0-1.414z" /></svg>
     </div>
   )
 }

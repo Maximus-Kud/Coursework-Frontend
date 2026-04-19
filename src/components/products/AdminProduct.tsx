@@ -86,26 +86,30 @@ function AdminProduct(props: Props) {
 
 
       {isEditWindowOpen && editType === "update" && (
-        <div className="window">
-          <div className="title">Update Product</div>
-          <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-          <input type="number" min={0} placeholder="Price" value={price} onChange={e => setPrice(Number(e.target.value))} />
-          <input type="number" min={0} placeholder="In Stock" value={inStock} onChange={e => setInStock(Number(e.target.value))} />
-          <label>
-            Available:
-            <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
-          </label>
-          <button onClick={closeWindow}>Cancel</button>
-          <button className="save-button" onClick={handleUpdate}>Save</button>
+        <div className="modal-overlay">
+          <div className="window">
+            <div className="title">Update Product</div>
+            <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
+            <input type="number" min={0} placeholder="Price" value={price} onChange={e => setPrice(Number(e.target.value))} />
+            <input type="number" min={0} placeholder="In Stock" value={inStock} onChange={e => setInStock(Number(e.target.value))} />
+            <label>
+              Available:
+              <input type="checkbox" checked={isAvailable} onChange={e => setIsAvailable(e.target.checked)} />
+            </label>
+            <button onClick={closeWindow}>Cancel</button>
+            <button className="save-button" onClick={handleUpdate}>Save</button>
+          </div>
         </div>
       )}
 
       {isEditWindowOpen && editType === "delete" && (
-        <div className="window">
-          <div>Delete Product</div>
-          <div>Are you sure you want to delete "{props.product.name}"?</div>
-          <button onClick={closeWindow}>Cancel</button>
-          <button className="delete" onClick={handleDelete}>Yes, Delete</button>
+        <div className="modal-overlay">
+          <div className="window">
+            <div>Delete Product</div>
+            <div>Are you sure you want to delete "{props.product.name}"?</div>
+            <button onClick={closeWindow}>Cancel</button>
+            <button className="delete" onClick={handleDelete}>Yes, Delete</button>
+          </div>
         </div>
       )}
     </div>

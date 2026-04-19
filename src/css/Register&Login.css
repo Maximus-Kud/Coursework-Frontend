@@ -10,8 +10,10 @@
   height: 40%;
 
   border-radius: 20px;
+  border: 1px solid var(--border-main);
+  box-shadow: var(--shadow-modal);
 
-  background-color: #ffffff;
+  background-color: var(--bg-modal);
 
   display: flex;
   justify-content: center;
@@ -42,9 +44,6 @@
 }
 
 .register-and-login-window .inputs input {
-  border: 1px solid #D6E4FF;
-  border-radius: 7px;
-
   padding: 5px 10px;
 
   font-size: 16px;
@@ -52,8 +51,8 @@
 
 
 .register-and-login-window .action-button {
-  background-color: #0a5bff;
-  color: #ffffff;
+  background-color: var(--primary);
+  color: var(--text-white);
 
   font-family: 'Google-Sans-Bold';
   font-size: 20px;
@@ -70,7 +69,7 @@
 }
 .register-and-login-window .action-button:hover {
   cursor: pointer;
-  background-color: #0847cc;
+  background-color: var(--primary-hover);
 
   transform: scale(1.05);
 }
@@ -91,6 +90,6 @@
 
 
 .inline-error-message {
-  background-color: #ff4444;
-  color: #ffffff;
+  background-color: var(--error-bg);
+  color: var(--error-color);
 }

@@ -1,4 +1,4 @@
-import type { ApplicationUser } from "../types/Applicationuser";
+import type { ApplicationUser } from "../types/ApplicationUser";
 
 type Props = {
   date: string,

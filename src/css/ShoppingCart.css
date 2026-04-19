@@ -1,5 +1,5 @@
 #shopping-cart {
-  background-color: #ffffff;
+  background-color: var(--bg-main);
 
   position: fixed;
 
@@ -47,7 +47,7 @@
   flex-direction: column;
 
   width: 200px;
-  border: 1px solid #e9e9e9;
+  border: 1px solid var(--border-main);
 
   padding: 15px;
   border-radius: 15px;
@@ -64,7 +64,7 @@
 #pay-button {
   width: 50%;
 
-  background-color: #0a5bff;
+  background-color: var(--primary);
   color: #ffffff;
 
   padding: 15px;
@@ -74,7 +74,7 @@
 }
 #pay-button:hover {
   cursor: pointer;
-  background-color: #0a3d91;
+  background-color: var(--primary-hover);
 }
 
 
@@ -82,7 +82,7 @@
 
 
 #account-info {
-  background-color: #ffffff;
+  background-color: var(--bg-main);
 
   position: fixed;
 

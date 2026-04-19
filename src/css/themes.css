@@ -1,0 +1,185 @@
+:root,
+[data-theme="light"] {
+  /* ============================== Background ============================== */
+  --bg-main: #f5f9ff;
+  --bg-card: #ffffff;
+  --bg-modal: #ffffff;
+  --bg-overlay: rgba(10, 61, 145, 0.35);
+
+
+
+  /* ============================== Text ============================== */
+  --text-main: #1a1a1a;
+  --text-secondary: #5a6b85;
+
+  --text-white: #e6ecff;
+  --text-black: #1a1a1a;
+
+  --reverse-text-color: #e6ecff;
+
+
+
+  /* ========== Input ========== */
+  --input-bg: #ffffff;
+
+
+
+  /* ========== Primary ========== */
+  --primary: #0a5bff;
+  --primary-hover: #0847cc;
+
+
+  /* ========== Secondary ========== */
+  --secondary-bg: #e6f0ff;
+
+
+  /* ========== Borders ========== */
+  --border-main: #d6e4ff;
+
+
+  /* ========== Info ========== */
+  --info-bg: #e7f3ff;
+  --info-color: #084298;
+  --info-border: #b6d4fe;
+
+  --info-hover: #d6e9ff;
+
+
+  /* ========== Success ========== */
+  --success-bg: #e6f9f0;
+  --success-color: #0f5132;
+  --success-border: #a3e4c2;
+  --success-hover: #d1f2e0;
+
+
+  /* ========== Warning ========== */
+  --warning-bg: #fff4e5;
+  --warning-color: #664d03;
+  --warning-border: #ffdd99;
+  --warning-hover: #ffe8cc;
+
+
+  /* ========== Error ========== */
+  --error-bg: #fdecea;
+  --error-color: #842029;
+  --error-border: #f5c2c7;
+  --error-hover: #fbd5d0;
+
+
+  /* ========== Shadows ========== */
+  --shadow-modal: 0 10px 40px rgba(10, 61, 145, 0.25);
+
+
+
+  /* ========== Accents ========== */
+  --accent-blue: #0a5bff;
+  --accent-blue-hover: #0847cc;
+
+  --accent-cyan: #00bcd4;
+  --accent-cyan-hover: #0097a7;
+
+  --accent-green: #13cc4b;
+  --accent-green-hover: #0e9c39;
+
+  --accent-yellow: #ffb400;
+  --accent-yellow-hover: #e0a000;
+
+  --accent-orange: #f4a261;
+  --accent-orange-hover: #e38b3a;
+
+  --accent-red: #e63946;
+  --accent-red-hover: #c92a36;
+}
+
+
+
+
+
+[data-theme="dark"] {
+  /* ============================== Background ============================== */
+  --bg-main: #0b1426;
+  --bg-card: #111c33;
+  --bg-modal: #162447;
+
+
+
+  /* ============================== Text ============================== */
+  --text-main: #e6ecff;
+  --text-secondary: #9fb3d1;
+
+
+  --reverse-text-color: #1a1a1a;
+
+
+
+  /* ========== Input ========== */
+  --input-bg: #0f172a;
+
+
+
+  /* ========== Primary ========== */
+  --primary: #1f6bff;
+  --primary-hover: #3b82ff;
+
+
+  /* ========== Secondary ========== */
+  --secondary-bg: #1a2740;
+
+
+  /* ========== Borders ========== */
+  --border-main: #1f2a44;
+
+  
+  /* ========== Overlay ========== */
+  --overlay: rgba(0,0,0,0.6);
+
+
+
+  /* ========== Info ========== */
+  --info-bg: #0f2a44;
+  --info-color: #82c0ff;
+  --info-border: #1f4e79;
+  --info-hover: #16395c;
+
+
+  /* ========== Success ========== */
+  --success-bg: #0f2e24;
+  --success-color: #4fe3a1;
+  --success-border: #1f5c46;
+  --success-hover: #164235;
+
+
+  /* ========== Warning ========== */
+  --warning-bg: #3a2b00;
+  --warning-color: #ffd166;
+  --warning-border: #665100;
+  --warning-hover: #4c3700;
+
+
+  /* ========== Error ========== */
+  --error-bg: #3a1618;
+  --error-color: #ff6b6b;
+  --error-border: #7a2e33;
+  --error-hover: #4c1c1f;
+
+
+
+  /* ========== Accents ========== */
+  --accent-blue: #3b82ff;
+  --accent-blue-hover: #5a9bff;
+
+  --accent-cyan: #4dd0e1;
+  --accent-cyan-hover: #26c6da;
+
+  --accent-green: #22d66a;
+  --accent-green-hover: #1bb85a;
+
+  --accent-yellow: #ffd166;
+  --accent-yellow-hover: #e6b800;
+
+  --accent-orange: #ffb86b;
+  --accent-orange-hover: #ffa94d;
+
+  --accent-red: #ff4d5a;
+  --accent-red-hover: #e63946;
+}
