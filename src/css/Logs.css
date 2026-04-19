@@ -1,0 +1,79 @@
+#logs-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background-color: #ffffff;
+
+  padding: 20px;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 300px;
+
+  max-width: 800px;
+  max-height: 700px;
+
+  z-index: 10;
+}
+
+
+
+#logs-title {
+  font-family: 'Google-Sans-Bold';
+  font-size: 30px;
+
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 10px;
+}
+
+
+
+#load-logs-button {
+  background-color: #ffffff;
+
+  font-size: 15px;
+
+  border: 2px solid #53c8ff;
+  border-radius: 7px;
+
+  padding: 5px 0;
+  width: 100%;
+
+  transition: 0.2s;
+}
+#load-logs-button:hover {
+  background-color: #53c8ff;
+  color: #ffffff;
+}
+
+
+
+#logs {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(100% - 60px);
+
+  border-top: 2px solid #53c8ff;
+
+  padding: 2px;
+}
+
+
+
+.log {
+  padding: 5px;
+}
+
+
+.close-logs {
+  position: absolute;
+  top: 1%;
+}

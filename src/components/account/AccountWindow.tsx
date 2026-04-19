@@ -17,6 +17,8 @@ type Props = {
   handleLogOut: () => void,
   toggleCart: () => void,
   openProfile: () => void,
+
+  openLogs: () => void,
 }
 
 
@@ -30,6 +32,10 @@ function AccountWindow (props: Props) {
 
       {props.isLoggedIn && props.email === "admin@email.com" && (
         <div id="admin-panel-button" onClick={props.adminPanelOpen}>Admin Panel</div>
+      )}
+
+      {props.isLoggedIn && props.email === "owner@email.com" && (
+        <div id="logs-button" onClick={props.openLogs}>Logs</div>
       )}
 
       {props.isLoggedIn && (

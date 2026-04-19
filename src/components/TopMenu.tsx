@@ -7,13 +7,12 @@ import type { ProductType } from "../types/ProductType";
 import AccountInfo from "./account/AccountInfo";
 import AccountWindow from "./account/AccountWindow";
 
-import '../css/TopMenu.css'
-import '../css/Register&Login.css'
-
 import SettingsWindow from "./SettingsWindow";
 import RegisterWindow from "./authentication/RegisterWindow";
 import LoginWindow from "./authentication/LoginWindow";
 import type { AppNotification, NotificationType } from "../types/Notification";
+import LogsWindow from "./special roles/LogsWindow";
+import CatalogWindow from "./CatalogWindow";
 
 
 
@@ -72,6 +71,10 @@ function TopMenu(props: Props) {
   const [profileWindowIsOpen, setProfileWindowIsOpen] = useState(false);
   
   const [shoppingCartIsOpen, setShoppingCartIsOpen] = useState(false);
+
+  const [logsWindowIsOpen, setLogsWindowIsOpen] = useState(false);
+
+  const [catalogWindowIsOpen, setCatalogWindowIsOpen] = useState(false);
   
 
 
@@ -118,9 +121,12 @@ function TopMenu(props: Props) {
       props.setEmail("");
       props.setPassword("")
       props.setIsLoggedIn(false);
+      props.setCartProducts([]);
 
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+      localStorage.removeItem('cart');
 
       props.loginClose();
       props.registerClose();
@@ -136,13 +142,18 @@ function TopMenu(props: Props) {
 
   return (
     <div id='top-menu'>
-      <div id='catalog'>
+      <div id='catalog' onClick={() => setCatalogWindowIsOpen(true)}>
         <svg viewBox="0 0 32 32" fill="#1a1a1a" className="icon-component MainMenu_icon__s2UM2" plerdy-tracking-id="50176636401">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M3 9a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 7a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm1 6a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2H4Z"></path>
         </svg>
-
-        <div>Catalog</div>
       </div>
+
+      {catalogWindowIsOpen && (
+        <CatalogWindow
+          setCatalogWindowIsOpen={setCatalogWindowIsOpen}
+        />
+      )}
+
 
       <div id='search'>
         <input type='text' placeholder='Search...' id='search-input' />
@@ -167,6 +178,8 @@ function TopMenu(props: Props) {
             handleLogOut={handleLogOut}
             toggleCart={() => setShoppingCartIsOpen(prev => !prev)}
             openProfile={() => setProfileWindowIsOpen(true)}
+
+            openLogs={() => setLogsWindowIsOpen(true)}
           />
         }
       </div>
@@ -184,6 +197,13 @@ function TopMenu(props: Props) {
 
           showToastNotification={props.showToastNotification}
           showModalNotification={props.showModalNotification}
+        />
+      )}
+
+      {logsWindowIsOpen && (
+        <LogsWindow
+          showModalNotification={props.showModalNotification}
+          logWindowClose={() => setLogsWindowIsOpen(false)}
         />
       )}
 

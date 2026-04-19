@@ -1,6 +1,7 @@
 import { localhost } from "../config/constants";
 import type { ProductType } from "../types/ProductType";
 import { apiConfig } from "../config/apiConfig";
+import { setWithExpiry } from "./storage";
 
 
 
@@ -44,9 +45,9 @@ export async function callApi(controller: keyof typeof apiConfig, endpoint: keyo
   const result = text ? JSON.parse(text) : {};
 
   if (endpoint === 'login' && result.token) {
-    localStorage.setItem("token", result.token);
-    localStorage.setItem("username", result.user);
-    localStorage.setItem("email", result.email);
+    setWithExpiry("token", result.token, 3);
+    setWithExpiry("username", result.user, 3);
+    setWithExpiry("email", result.email, 3);
   }
 
 

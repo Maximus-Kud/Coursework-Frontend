@@ -1,0 +1,31 @@
+#catalog-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  z-index: 10;
+}
+
+
+
+#pu-pu-pu {
+  font-size: 30px;
+  font-family: 'Google-Sans-Bold';
+}
+
+
+
+#financing {
+  font-size: 20px;
+  font-family: 'Google-Sans-Medium';
+}

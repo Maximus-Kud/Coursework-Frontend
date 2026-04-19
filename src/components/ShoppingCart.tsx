@@ -1,4 +1,3 @@
-import '../css/ShoppingCart.css'
 import { marketplaceOrder } from '../services/api';
 import type { NotificationType } from '../types/Notification';
 import type { ProductType } from '../types/ProductType';

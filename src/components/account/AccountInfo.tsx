@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { marketplaceGetAccountInfo } from '../../services/api';
-import '../../css/ShoppingCart.css';
 
 
 

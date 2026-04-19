@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { adminAddProduct, adminChangeAccountBalance, adminChangeOrderStatus, adminGetOrdersInShoppingCart, adminGetOrdersPurchased, adminGetUsers, marketplaceGetAvailableProducts } from "../services/api";
-import type { ProductType } from "../types/ProductType";
-import AdminProduct from "./products/AdminProduct";
-import parseError from "../services/helper";
-import type { OrderType } from "../types/OrderType";
-import type { NotificationType } from "../types/Notification";
-
-import '../css/AdminPanel.css'
+import { adminAddProduct, adminChangeAccountBalance, adminChangeOrderStatus, adminGetOrdersInShoppingCart, adminGetOrdersPurchased, adminGetUsers, marketplaceGetAvailableProducts } from "../../services/api";
+import type { ProductType } from "../../types/ProductType";
+import AdminProduct from "../products/AdminProduct";
+import parseError from "../../services/helper";
+import type { OrderType } from "../../types/OrderType";
+import type { NotificationType } from "../../types/Notification";
 
 
 

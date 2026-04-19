@@ -8,12 +8,24 @@ import type { ProductType } from '../types/ProductType'
 import { marketplaceGetAvailableProducts } from '../services/api'
 import Product from '../components/products/Product'
 import TopMenu from '../components/TopMenu'
-import AdminPanel from '../components/AdminPanel'
+import AdminPanel from '../components/special roles/AdminPanel'
 import parseError from '../services/helper'
 import InlineNotification from '../components/notifications/InlineNotification'
 import type { AppNotification, NotificationType } from '../types/Notification'
 import ToastNotification from '../components/notifications/ToastNotification'
 import ModalNotification from '../components/notifications/ModalNotification'
+import { getWithExpiry, setWithExpiry } from '../services/storage'
+
+
+import '../css/AdminPanel.css'
+import '../css/TopMenu.css'
+import '../css/Register&Login.css'
+import '../css/ShoppingCart.css';
+import '../css/notifications/Notifications.css'
+import '../css/SettingsWindow.css'
+import '../css/ShoppingCart.css'
+import '../css/Logs.css'
+import '../css/CatalogWindow.css'
 
 
 
@@ -22,8 +34,8 @@ import ModalNotification from '../components/notifications/ModalNotification'
 function HomePage() {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [cartProducts, setCartProducts] = useState<ProductType[]>(() => {
-    const saved = localStorage.getItem('cart');
-    return saved ? JSON.parse(saved) : [];
+    const saved = getWithExpiry('cart');
+    return saved ? saved: [];
   });
 
   const [activeTheme, setActiveTheme] = useState('Light');
@@ -33,13 +45,13 @@ function HomePage() {
   const [modalNotification, setModalNotification] = useState<AppNotification | null>(null);
 
 
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!getWithExpiry("token"));
 
   const [loginWindowIsOpen, setLoginWindowIsOpen] = useState(false);
   const [registerWindowIsOpen, setRegisterWindowIsOpen] = useState(false);
 
-  const [username, setUsername] = useState(localStorage.getItem("username") || '');
-  const [email, setEmail] = useState(localStorage.getItem('email') || '');
+  const [username, setUsername] = useState(getWithExpiry("username") || '');
+  const [email, setEmail] = useState(getWithExpiry('email') || '');
   const [password, setPassword] = useState('');
 
   const [settingsWindowIsOpen, setSettingsWindowIsOpen] = useState(false);
@@ -142,7 +154,12 @@ function HomePage() {
   };
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
+    if (cartProducts.length > 0) {
+      setWithExpiry('cart', cartProducts, 3);
+    }
+    else {
+      localStorage.removeItem('cart');
+    }
   }, [cartProducts]);
 
 
@@ -252,7 +269,6 @@ function HomePage() {
 
 
 
-        {/* {inlineNotification && inlineNotificationIsVisible && ( */}
         {toastNotification && (
           <ToastNotification
             notification={toastNotification}

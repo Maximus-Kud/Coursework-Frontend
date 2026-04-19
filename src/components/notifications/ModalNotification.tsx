@@ -1,5 +1,4 @@
 import type { AppNotification } from "../../types/Notification";
-import '../../css/notifications/Notifications.css'
 
 
 
