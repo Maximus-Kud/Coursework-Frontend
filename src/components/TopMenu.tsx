@@ -144,7 +144,7 @@ function TopMenu(props: Props) {
     <div id='top-menu'>
       <div id='catalog' onClick={() => setCatalogWindowIsOpen(true)}>
         <svg viewBox="0 0 32 32" fill="currentColor" className="icon-component MainMenu_icon__s2UM2" plerdy-tracking-id="50176636401">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M3 9a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 7a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm1 6a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2H4Z"></path>
+          <path fillRule="evenodd" clipRule="evenodd" d="M3 9a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 7a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm1 6a1 1 0 1 0 0 2h24a1 1 0 1 0 0-2H4Z"></path>
         </svg>
       </div>
 
