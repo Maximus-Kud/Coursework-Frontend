@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { adminAddProduct, adminChangeAccountBalance, adminChangeOrderStatus, adminGetOrdersInShoppingCart, adminGetOrdersPurchased, adminGetUsers } from "../../services/api";
+import { adminAddProduct, adminChangeAccountBalance, adminChangeOrderStatus, adminGetOrdersInShoppingCart, adminGetOrdersPurchased, adminGetUsers, adminUploadImage } from "../../services/api";
 import type { ProductType } from "../../types/ProductType";
 import AdminProduct from "../products/AdminProduct";
 import parseError from "../../services/helper";
@@ -66,12 +66,17 @@ function AdminPanel(props: Props) {
   const [changeOrderStatusWindowIsOpen, setChangeOrderStatusWindowIsOpen] = useState(false);
   const [changeAccountBalanceWindowIsOpen, setChangeAccountBalanceWindowIsOpen] = useState(false);
 
+  const [newImageFile, setNewImageFile] = useState<File | null>(null);
+  const [newImagePreview, setNewImagePreview] = useState<string>("");
+
 
 
   const handleCancel = (state: (close: boolean) => void) => {
     setNewName("");
     setNewPrice(undefined);
     setNewInStock(undefined);
+    setNewImageFile(null);
+    setNewImagePreview("");
 
     state(false);
   };
@@ -89,7 +94,12 @@ function AdminPanel(props: Props) {
         return;
       }
 
-      await adminAddProduct(newName, newPrice, newInStock);
+      let imageURL: string | undefined;
+
+      if (newImageFile) imageURL = await adminUploadImage(newImageFile);
+
+
+      await adminAddProduct(newName, newPrice, newInStock, imageURL);
       props.onProductUpdated();
 
       handleCancel(setAddProductWindowIsOpen);
@@ -216,6 +226,23 @@ function AdminPanel(props: Props) {
             <input type="text" placeholder="Name" value={newName} onChange={e => setNewName(e.target.value)} />
             <input type="number" placeholder="Price" value={newPrice ?? ""} min={0} onChange={e => setNewPrice(e.target.value ? Number(e.target.value) : undefined)} />
             <input type="number" placeholder="In Stock" value={newInStock ?? ""} min={0} onChange={e => setNewInStock(Number(e.target.value))} />
+
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+              {newImagePreview ? <img src={newImagePreview} alt="image preview" style={{width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', marginBottom: '4px'}} /> : <div style={{color: 'var(--text-secondary)', fontSize: '13px'}}>No image selected</div>}
+              <input
+                id="image-upload-input"
+                type="file"
+                accept="image/*"
+                style={{display: 'none'}}
+                onChange={e => {
+                  const file = e.target.files?.[0] ?? null;
+                  setNewImageFile(file);
+                  setNewImagePreview(file ? URL.createObjectURL(file) : "")
+                }}
+              />
+              <label htmlFor="image-upload-input" style={{cursor: 'pointer', background: 'var(--accent-blue)', color: 'var(--text-white)', borderRadius: '8px', padding: '4px 16px', fontSize: '14px'}}>{newImageFile ? "ChangeImage" : "Choose Image"}</label>
+            </div>
+
             <button onClick={() => handleCancel(setAddProductWindowIsOpen)}>Cancel</button>
             <button className="save-button" onClick={handleAddProduct}>Add</button>
           </div>

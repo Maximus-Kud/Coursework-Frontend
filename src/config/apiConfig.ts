@@ -45,12 +45,15 @@ export const apiConfig: ApiConfig = {
 
 
   Admin: {
+    uploadImage: {
+      method: "POST"
+    },
     products: {
       method: "GET"
     },
     addProduct: {
       method: "POST",
-      body: ["name", "price", "inStock"]
+      body: ["name", "price", "inStock", "imageURL"]
     },
     updateProduct: {
       method: "PATCH",

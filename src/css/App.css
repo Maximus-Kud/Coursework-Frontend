@@ -231,12 +231,22 @@ header div {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  height: 100%;
 }
 .product:hover {
   cursor: pointer;
   background-color: var(--secondary-bg);
 
   box-shadow: 5px 5px 0 rgba(10, 61, 145, 0.08);
+}
+
+.product-image {
+  display: flex;
+  margin: 0 auto;
+  max-width: 250px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .product-name {
@@ -258,7 +268,7 @@ header div {
 }
 
 .buy-button {
-  margin-top: 20px;
+  margin-top: auto;
 
   background-color: var(--primary);
   color: var(--text-white);

@@ -106,13 +106,36 @@ export async function marketplaceGetLogs() {
 
 
 // ========== Admin ==========
+export async function adminUploadImage(file: File) {
+  const token = getWithExpiry("token");
+  const url = `${localhost}Admin/uploadImage`;
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+    body: formData
+  });
+
+  const text = await response.text();
+  if (!response.ok) throw { message: text || "Image upload failed" };
+
+  const result = JSON.parse(text);
+  return result.imageURL as string;
+}
+
+
 export async function adminGetProducts() {
   return callApi("Admin", "products");
 }
 
 
-export async function adminAddProduct(name: string, price: number, inStock: number) {
-  return callApi("Admin", "addProduct", { name, price, inStock });
+export async function adminAddProduct(name: string, price: number, inStock: number, imageURL?: string) {
+  return callApi("Admin", "addProduct", { name, price, inStock, imageURL });
 }
 
 

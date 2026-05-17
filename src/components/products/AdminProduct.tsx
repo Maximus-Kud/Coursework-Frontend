@@ -72,7 +72,7 @@ function AdminProduct(props: Props) {
   return (
     <div className="admin-product">
       <div className="admin-product-info">
-        <img />
+        <img src={props.product.imageURL} alt={props.product.name} className="product-image" />
         <div className="admin-product-name">{props.product.name}</div>
         <div className='admin-product-price'>{props.product.price} $</div>
         <div className='admin-product-stock'>In Stock: {props.product.inStock}</div>

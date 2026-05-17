@@ -81,6 +81,12 @@
 
 
 /* ============================== Admin Products ============================== */
+.window label[for="image-upload-input"] {
+  display: inline-block;
+  width: auto;
+}
+
+
 #product-section {
   display: flex;
   flex-direction: column;

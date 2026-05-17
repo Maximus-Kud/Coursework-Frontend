@@ -4,5 +4,5 @@ export type ProductType = {
   price: number,
   inStock: number,
   isAvailable: boolean,
-  image: string,
+  imageURL: string,
 }
